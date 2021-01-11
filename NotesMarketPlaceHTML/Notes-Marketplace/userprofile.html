@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="css/date-picker/bootstrap-datepicker.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+    <section id="userprofile-page" class="heading-space-img" >
+       
+        <nav class="navbar navbar-expand-lg navbar-light  bg-light fixed-top  general-navbar">
+            <a class="navbar-brand" href="#">
+               <img src="img/User-Profile/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="searchpage.html">Search Notes</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="dashboard.html">Sell Your Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="buyerrequests.html">Buyer Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contactus.html">Contact Us</a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                            <a class="nav-link navbar-user-photo" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="userprofile.html">My Profile</a>
+                                <a class="dropdown-item" href="mydownloads.html">My Downloads</a>
+                                <a class="dropdown-item" href="mysoldnotes.html">My Sold Notes</a>
+                                <a class="dropdown-item" href="myrejectednotes.html">My Rejected Notes</a>
+                                <a class="dropdown-item" href="changepassword.html">Change Password</a>
+                                <a class="dropdown-item row-color" href="#"><b>Logout</b></a>
+                            </div>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                        <form class="form-inline my-2 my-lg-0">
+                           <button class="btn btn-nav-login" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+                
+            </div>
+        </nav> 
+        
+        
+        <div id="userprofile-header">
+            <div class="container">
+                <div id="userprofile-title-main" class="text-center">
+                    <h2>User Profile</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="basic-profile">
+                        <form>
+                            <div id="userprofile-title">
+                                <h3>Basic Profile Details</h3>
+                            </div>
+                            
+                            <div class="row">
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-ftext">
+                                       <label for="fname" class="label-text">First Name*</label>
+                                       <input type="text" class="form-control label-text" id="fname" aria-describedby="textHelp" placeholder="Enter your first name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-ltext">
+                                       <label for="lname" class="label-text">Last Name*</label>
+                                       <input type="text" class="form-control label-text" id="lname" aria-describedby="textHelp" placeholder="Enter your last name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-mail-1">
+                                       <label for="mail" class="label-text">Email*</label>
+                                       <input type="email" class="form-control label-text input-field" id="mail" aria-describedby="emailHelp" placeholder="Enter your email address" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-date">
+                                       <label for="dob" class="label-text">Date of Birth</label>
+                                       <input type="text" class="form-control label-text date-picker" id="dob" aria-describedby="dobHelp" placeholder="Enter your date of birth">
+                                       <i class="fa fa-calendar cal-img date-picker"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-group-1">
+                                        <label for="gender" class="label-text">Gender</label>
+                                        <select class="form-control">
+				                          <option value="" selected>Select your gender</option>
+				                          <option value="male">Male</option>
+				                          <option value="female">Female</option>
+			                            </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                   <div class="row">
+                                      <div class="col-md-12">
+                                          <label for="phone-number" class="label-text" id="ph-n">Phone Number</label>
+                                      </div>
+                                       
+                                       <div class="col-md-3 col-sm-3">
+                                          <div class="form-group">
+                                              <select class="form-control">
+				                                 <option value="op-1" selected>+91</option>
+				                                 <option value="op-2">+66</option>
+				                                 <option value="op-3">+55</option>
+			                                    </select>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="col-md-9 col-sm-9">
+                                           <div class="form-group" >
+                                              <input type="text" class="form-control label-text" id="phone-number" aria-describedby="textHelp" placeholder="Enter your phone number" required>
+                                            </div>
+                                       </div>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-sm-6">
+						          <label for="profile-picture" class="label-text">Profile Picture</label>
+						           <div class="image-upload text-center">
+							           <label for="file-input">
+								          <img src="img/User-Profile/upload.png" />
+								          <p>Upload a picture</p>
+							          </label>
+						            </div>
+						            <input id="file-input" type="file" class="hidden" />
+                                </div>
+                                
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-12">
+                  <div id="address-detail">
+                      <form>
+                         <div id="userprofile-title">
+                             <h3>Address Details</h3>
+                          </div>
+                          <div class="row">
+                             
+                              <div class="col-md-6">
+                                 <div class="form-group" id="form-adr-1">
+                                     <label for="adr-line-1" class="label-text">Address Line 1*</label>
+                                     <input type="text" class="form-control label-text" id="adr-line-1" aria-describedby="textHelp" placeholder="Enter your address" required>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                 <div class="form-group" id="form-adr-2">
+                                     <label for="adr-line-2" class="label-text">Address Line 2*</label>
+                                     <input type="text" class="form-control label-text" id="adr-line-2" aria-describedby="textHelp" placeholder="Enter your address" required>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                 <div class="form-group" id="form-city">
+                                     <label for="city" class="label-text">City*</label>
+                                     <input type="text" class="form-control label-text" id="city" aria-describedby="textHelp" placeholder="Enter your city" required>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                 <div class="form-group" id="form-state">
+                                     <label for="state" class="label-text">State*</label>
+                                     <input type="text" class="form-control label-text" id="state" aria-describedby="textHelp" placeholder="Enter your state" required>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                 <div class="form-group" id="form-zip">
+                                     <label for="zip" class="label-text">ZipCode*</label>
+                                     <input type="text" class="form-control label-text" id="zip" aria-describedby="textHelp" placeholder="Enter your zipcode" required>
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group" id="form-group-1">
+                                        <label for="gender" class="label-text">Country*</label>
+                                        <select class="form-control">
+				                          <option value="" selected>Select your country</option>
+				                          <option value="cnt-1">America</option>
+				                          <option value="cnt-2">Argentina</option>
+				                          <option value="cnt-3">Barbados</option>
+				                          <option value="cnt-4">Chile</option>
+				                          <option value="cnt-5">India</option>
+				                          <option value="cnt-6">Indonesia</option>
+				                          <option value="cnt-7">Phillipines</option>
+			                            </select>
+                                    </div>
+                                </div>
+                                
+                          </div>
+                      </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="uni-detail">
+                        <form>
+                           <div id="userprofile-title">
+                             <h3>University and College Information</h3>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                 <div class="form-group" id="form-uni">
+                                     <label for="uni" class="label-text">University</label>
+                                     <input type="text" class="form-control label-text" id="uni" aria-describedby="textHelp" placeholder="Enter your university" >
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                   <div class="form-group" id="form-clg">
+                                     <label for="clg" class="label-text">College</label>
+                                     <input type="text" class="form-control label-text" id="clg" aria-describedby="textHelp" placeholder="Enter your college" >
+                                   </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <button type="submit" class="btn btn-primary" id="login-button">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+           <div class="container">
+              
+               <div class="row">
+                 
+                  <div class="col-md-10">
+                        <p>
+                         Copyright &copy; Tatvasoft All Rights Reserved
+                        </p>
+                   </div>
+                   
+                   <div class="col-md-2 text-center">
+                       <ul class="social-list">
+                            <li>
+                                <a href="#">
+                                 <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                  <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </li>
+                        </ul>
+                   </div>
+                </div>
+            </div>
+        </footer>
+        
+    </section>
+    
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    
+    <!-- Date Picker -->
+    <script src="js/date-picker/bootstrap-datepicker.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

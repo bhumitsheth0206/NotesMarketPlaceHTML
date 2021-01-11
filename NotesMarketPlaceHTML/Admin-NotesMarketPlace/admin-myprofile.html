@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+   
+   <section id="myprofile-page" class="main-wrapper">
+      
+         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand" href="#">
+               <img src="img/assets/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Admin-Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="#">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="img/assets/user-img.png" />
+                        </a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-home-1 my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav> 
+      
+       <div class="content-box-lg heading-space">
+           <div class="container">
+               <div class="row">
+                   
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                           <h3>My Profile</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-7 ">
+                        <div id="myprofile-form">
+                            <form>
+                                <div class="row">
+                                    
+                                    <div class="col-md-12">
+                                       <div class="form-group" id="myprof-fname">
+                                           <label for="ad-myprof-fname" class="label-text">First Name*</label>
+                                           <input type="text" class="form-control label-text" id="ad-myprof-fname" aria-describedby="textHelp" placeholder="Enter your first name" required>
+                                       </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                       <div class="form-group" id="myprof-lname">
+                                           <label for="ad-myprof-lname" class="label-text">Last Name*</label>
+                                           <input type="text" class="form-control label-text" id="ad-myprof-lname" aria-describedby="textHelp" placeholder="Enter your last name" required>
+                                       </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="myprof-mail">
+                                            <label for="ad-myprof-mail" class="label-text">Email*</label>
+                                            <input type="email" class="form-control label-text" id="ad-myprof-mail" aria-describedby="emailHelp" placeholder="Enter your email address" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="myprof-sec_mail">
+                                            <label for="ad-myprof-sec_mail" class="label-text">Secondary Email</label>
+                                            <input type="email" class="form-control label-text" id="ad-myprof-sec_mail" aria-describedby="emailHelp" placeholder="Enter your email address">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                       <label for="phone-number" class="label-text" id="ph-n">Phone Number</label>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="form-group">
+                                                    <select class="form-control">
+				                                        <option value="op-1" selected>+91</option>
+				                                        <option value="op-2">+66</option>
+				                                        <option value="op-3">+55</option>
+			                                        </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                               <div class="form-group" id="phn-no" >
+                                                   <input type="text" class="form-control label-text" id="phone-number" aria-describedby="textHelp" placeholder="Enter your phone number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <label for="profile-picture" class="label-text">Profile Picture</label>
+                                        <div class="image-upload text-center">
+                                            <label for="file-input">
+                                                <img src="img/assets/upload.png" alt="Upload" />
+                                                <p>Upload a picture</p>
+                                            </label>
+                                        </div>
+                                        <input id="file-input" type="file" class="hidden" />
+                                    </div>
+                                  
+                                    <div class="col-md-12">
+                                        <a class="btn  btn-home-1 smooth-scroll mt-3" role="button" href="#" title="Submit">SUBMIT</a>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                   
+               </div>
+           </div>
+       </div>
+       
+       <footer>
+           <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <div class="footer-text-1">
+                            <p>
+                               Version: 1.1.24
+                            </p> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="footer-text-2">
+                            <p>
+                               Copyright &copy; Tatvasoft All Rights Reserved
+                            </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+   </section>
+   
+       
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

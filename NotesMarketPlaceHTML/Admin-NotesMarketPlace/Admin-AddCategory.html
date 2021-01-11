@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+   
+   <section id="addcategory-page" class="main-wrapper">
+      
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand" href="#">
+               <img src="img/assets/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Admin-Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="#">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="img/assets/user-img.png" />
+                        </a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-home-1 my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav> 
+      
+       <div class="content-box-lg heading-space">
+           <div class="container">
+               <div class="row">
+                   
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                           <h3>Add Category</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-6">
+                        <div id="addcategory-form">
+                            <form>
+                                <div class="row">
+                                    
+                                    <div class="col-md-12">
+                                       <div class="form-group" id="addcategory-name">
+                                           <label for="ad-addcategory-fname" class="label-text">Category Name*</label>
+                                           <input type="text" class="form-control label-text" id="ad-myprof-fname" aria-describedby="textHelp" placeholder="Enter your category name" required>
+                                       </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addcategory-detail">
+                                            <label for="addcategory-detail" class="label-text">Discription*</label>
+                                            <textarea class="form-control" placeholder="Enter your discription" rows="12" required></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <a class="btn  btn-home-1 smooth-scroll" role="button" href="#" title="Submit">SUBMIT</a>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                   
+               </div>
+           </div>
+       </div>
+       
+       
+       
+        <footer class="footer-bottom">
+           <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <div class="footer-text-1">
+                            <p>
+                               Version: 1.1.24
+                            </p> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="footer-text-2">
+                            <p>
+                               Copyright &copy; Tatvasoft All Rights Reserved
+                            </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+   </section>
+   
+       
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>

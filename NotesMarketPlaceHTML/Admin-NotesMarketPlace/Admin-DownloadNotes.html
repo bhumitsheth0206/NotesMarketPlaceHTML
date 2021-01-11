@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+   <section id="downloadednotes-page" class="main-wrapper">  
+       
+         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand" href="#">
+               <img src="img/assets/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Admin-Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="#">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="img/assets/user-img.png" />
+                        </a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-home-1 my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav> 
+     
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+                   
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                           <h3>Download Notes</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div id="dash-heading-left-1">
+                           <div class="row">
+                               <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ad-notereview-name" class="label-text">Note</label>
+                                        <select class="form-control">
+				                           <option value="" selected>Select note</option>
+				                           <option value="note-1">Text-1</option>
+				                           <option value="note-2">Text-2</option>
+				                           <option value="note-3">Text-3</option>
+				                           <option value="note-4">Text-4</option>
+			                            </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ad-notereview-name" class="label-text">Seller</label>
+                                        <select class="form-control">
+				                           <option value="seller-1" selected>Khyati</option>
+				                           <option value="seller-2">Rahul</option>
+				                           <option value="seller-3">Suman</option>
+				                           <option value="seller-4">Raj</option>
+				                           <option value="seller-5">Nia</option>
+			                            </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ad-notereview-name" class="label-text">Buyer</label>
+                                        <select class="form-control">
+				                           <option value="buyer-1" selected>Khyati</option>
+				                           <option value="buyer-2">Rahul</option>
+				                           <option value="buyer-3">Suman</option>
+				                           <option value="buyer-4">Raj</option>
+				                           <option value="buyer-5">Nia</option>
+			                            </select>
+                                    </div>
+                                </div>
+                                
+                           </div>
+                        </div>
+                        
+                        <div id="dash-heading-right-1">
+                            <div class="form-group has-search" id="dash-left">
+                                <span class="fa fa-search form-control-feedback"></span>
+                                <input type="search" class="form-control search-field" placeholder="Search">
+                            </div>
+                            <div id="dash-right">
+                                <a class="btn  btn-home-1 smooth-scroll mb-2" role="button" href="#" title="Search">SEARCH</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                       <div class="table-responsive" id="dash-table">
+                           <table class="table table-general">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">SR NO.</th>
+                                      <th scope="col">NOTE TITLE</th>
+                                      <th scope="col">CATEGORY</th>
+                                      <th scope="col">BUYER</th>
+                                      <th scope="col"></th>
+                                      <th scope="col">SELLER</th>
+                                      <th scope="col"></th>
+                                      <th scope="col">SELL TYPE</th>
+                                      <th scope="col">PRICE</th>
+                                      <th scope="col">DOWNLOADED DATE/TIME</th>
+                                      <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                      <td scope="row">1</td>
+                                      <td class="row-color">Software Engineer</td>
+                                      <td>IT</td>
+                                      <td>Rahul Shah</td>
+                                      <td>
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Khyati Patel</td>
+                                      <td> 
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Paid</td>
+                                      <td>$145</td>
+                                      <td>25-11-2020, 11:08</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDownloadedNotesDropdown(1)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_1" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">2</td>
+                                      <td class="row-color">Computer Basic</td>
+                                      <td>Computer</td>
+                                      <td>Rahul Shah</td>
+                                      <td>
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Nikunj Shah</td>
+                                      <td> 
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>20-10-2020, 11:25</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDownloadedNotesDropdown(2)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_2" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">3</td>
+                                      <td class="row-color">Human Body</td>
+                                      <td>Science</td>
+                                      <td>Rahul Shah</td>
+                                      <td>
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Raj Sheth</td>
+                                      <td> 
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Paid</td>
+                                      <td>$204</td>
+                                      <td>08-11-2020, 04:07</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDownloadedNotesDropdown(3)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_3" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">4</td>
+                                      <td class="row-color">World War 2</td>
+                                      <td>History</td>
+                                      <td>Rahul Shah</td>
+                                      <td>
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Nia Patel</td>
+                                      <td> 
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Paid</td>
+                                      <td>$58</td>
+                                      <td>17-10-2020, 12:30</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDownloadedNotesDropdown(4)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_4" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">5</td>
+                                      <td class="row-color">Accounting</td>
+                                      <td>Account</td>
+                                      <td>Rahul Shah</td>
+                                      <td>
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Rohit Gajera</td>
+                                      <td> 
+                                            <div>
+                                              <img src="img/assets/eye.png" alt="eye" />
+                                            </div>
+                                      </td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>12-12-2019, 17:45</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDownloadedNotesDropdown(5)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_5" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                      </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                       </div>
+                        
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                           <a href="#"><i class="fa fa-angle-left"></i></a>
+                           <a href="#" class="active">1</a>
+                           <a href="#">2</a>
+                           <a href="#">3</a>
+                           <a href="#">4</a>
+                           <a href="#">5</a>
+                           <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer-bottom">
+           <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <div class="footer-text-1">
+                            <p>
+                               Version: 1.1.24
+                            </p> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="footer-text-2">
+                            <p>
+                               Copyright &copy; Tatvasoft All Rights Reserved
+                            </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+     
+    </section>
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

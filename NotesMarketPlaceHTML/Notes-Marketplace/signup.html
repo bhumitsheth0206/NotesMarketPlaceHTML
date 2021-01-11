@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+
+<body>
+    <div id="signup-page" class="bg-image">
+     
+        <div class="text-center">
+         <img  src="img/pre-login/top-logo.png" alt="logo" id="logo-img" width="180px" height="30px"/>
+        </div>
+       
+       <div class="form-container">
+            <form>
+               
+                <div class="title-heading">
+                    <h3>Create an Account</h3>
+                    <p>Enter your details to signup</p>
+                </div>
+                
+                <div class="form-group" id="form-ftext">
+                    <label for="fname" class="label-text">First Name*</label>
+                    <input type="text" class="form-control label-text" id="fname" aria-describedby="textHelp" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="form-group" id="form-ltext">
+                    <label for="lname" class="label-text">Last Name*</label>
+                    <input type="text" class="form-control label-text" id="lname" aria-describedby="textHelp" placeholder="Enter your last name" required>
+                </div>
+                
+                <div class="form-group" id="form-mail-1">
+                    <label for="mail" class="label-text">Email*</label>
+                    <input type="email" class="form-control label-text input-field" id="mail" aria-describedby="emailHelp" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group" id="form-passwd">
+                    <label for="password" class="label-text">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <i toggle="#password" class="fa fa-eye field-icon toggle-password" aria-hidden="true"></i>
+                </div>
+                
+                <div class="form-group" id="form-passwd">
+                    <label for="password" class="label-text">Confirm Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your confirm password">
+                    <i toggle="#password" class="fa fa-eye field-icon toggle-password" aria-hidden="true"></i>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" id="login-button">SIGN UP</button>
+                
+                <div class="login-bottom label-text">
+                    <p>Already have an account? <a href="loginpage.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

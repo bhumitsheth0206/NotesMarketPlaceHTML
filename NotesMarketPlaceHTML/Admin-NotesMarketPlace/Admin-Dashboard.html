@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0 ,user-scalable=no">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    
+    
+</head>
+
+<body>
+    <section id="dashboard-page" class="main-wrapper">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+               <img src="img/assets/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Admin-Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notes</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="Admin-NotesReview.html">Notes Under Review</a>
+                                <a class="dropdown-item" href="Admin-PublishedNotes.html">Published Notes</a>
+                                <a class="dropdown-item" href="Admin-DownloadNotes.html">Download Notes</a>
+                                <a class="dropdown-item" href="Admin-RejectedNotes.html">Rejected Notes</a>
+                            </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Admin-Members.html">Members</a>
+                    </li>
+                   <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="Admin-SpamReports.html">Spam Reports</a>
+                            </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link navbar-user-photo" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Update Profile</a>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <a class="dropdown-item row-color" href="#"><b>Logout</b></a>
+                            </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-home-1 my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav> 
+        
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+                   
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                           <h3>Dashboard</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 text-center mb-2">
+                        <div class="dashboard-border">
+                           <h3>20</h3>
+                           <p>Numbers of Notes in Review for Publish</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 text-center mb-2">
+                        <div class="dashboard-border">
+                           <h3>103</h3>
+                           <p>Numbers of New Notes Downloaded (Last 7 Days)</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 text-center mb-2">
+                        <div class="dashboard-border">
+                            <h3>223</h3>
+                            <p>Numbers of New Registrations (Last 7 Days)</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div id="dash-heading-left">
+                            <h4>Published Notes</h4>
+                        </div>
+                        <div id="dash-heading-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-search">
+                                      <span class="fa fa-search form-control-feedback"></span>
+                                      <input type="search" class="form-control search-field" placeholder="Search">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn  btn-dash smooth-scroll mb-2" role="button" href="#" title="Search">SEARCH</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <select class="form-control">
+				                           <option value="month-1" selected>Select Month</option>
+				                           <option value="month-2">January</option>
+				                           <option value="month-3">February</option>
+				                           <option value="month-4">March</option>
+				                           <option value="month-5">May</option>
+			                            </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                       <div class="table-responsive" id="dash-table">
+                           <table class="table table-general">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">SR NO.</th>
+                                      <th scope="col">TITLE</th>
+                                      <th scope="col">CATEGORY</th>
+                                      <th scope="col">ATTACHMENT SIZE</th>
+                                      <th scope="col">SELL TYPE</th>
+                                      <th scope="col">PRICE</th>
+                                      <th scope="col">PUBLISHER</th>
+                                      <th scope="col">PUBLISHED DATE</th>
+                                      <th scope="col">NUMBER OF DOWNLOADS</th>
+                                      <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                      <td scope="row">1</td>
+                                      <td class="row-color">Data Science</td>
+                                      <td>Science</td>
+                                      <td>10KB</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>Pritesh Panchal</td>
+                                      <td>09-10-2020,10:10</td>
+                                      <td>10</td>
+                                      <td>
+                                            <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDashboardDropdown(1)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_1" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                       <a href="#">Unpublish</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">2</td>
+                                      <td class="row-color">Accounts</td>
+                                      <td>Commerce</td>
+                                      <td>23MB</td>
+                                      <td>Paid</td>
+                                      <td>$22</td>
+                                      <td>Rahil Shah</td>
+                                      <td>10-10-2020,12:30</td>
+                                      <td>15</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDashboardDropdown(2)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_2" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                       <a href="#">Unpublish</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">3</td>
+                                      <td class="row-color">Social Studies</td>
+                                      <td>Social</td>
+                                      <td>3MB</td>
+                                      <td>Paid</td>
+                                      <td>$56</td>
+                                      <td>Anish Patel</td>
+                                      <td>11-10-2020,01:00</td>
+                                      <td>20</td>
+                                      <td>
+                                          <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDashboardDropdown(3)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_3" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                       <a href="#">Unpublish</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">4</td>
+                                      <td class="row-color">AI</td>
+                                      <td>IT</td>
+                                      <td>1MB</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>Vijay Vaishnav</td>
+                                      <td>12-10-2020,10:10</td>
+                                      <td>34</td>
+                                      <td>
+                                           <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDashboardDropdown(4)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_4" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                       <a href="#">Unpublish</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">5</td>
+                                      <td class="row-color">Lorem ipsum</td>
+                                      <td>Lorem</td>
+                                      <td>105KB</td>
+                                      <td>Paid</td>
+                                      <td>$90</td>
+                                      <td>Mehul Patel</td>
+                                      <td>13-10-2020,11:25</td>
+                                      <td>9</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <div class="dropdown">
+                                                   <i onclick="myDashboardDropdown(5)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_5" class="dropdown-content">
+                                                       <a href="#">Download Notes</a>
+                                                       <a href="#">View More Details</a>
+                                                       <a href="#">Unpublish</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                       </div>
+                        
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                           <a href="#"><i class="fa fa-angle-left"></i></a>
+                           <a href="#" class="active">1</a>
+                           <a href="#">2</a>
+                           <a href="#">3</a>
+                           <a href="#">4</a>
+                           <a href="#">5</a>
+                           <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer-bottom">
+           <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <div class="footer-text-1">
+                            <p>
+                               Version: 1.1.24
+                            </p> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="footer-text-2">
+                            <p>
+                               Copyright &copy; Tatvasoft All Rights Reserved
+                            </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

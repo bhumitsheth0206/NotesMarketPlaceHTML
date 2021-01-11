@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+    
+    <!-- favicon-->
+    <link rel="icon" href="img/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- icons -->
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+   
+   
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+    <section id="buyerrequests-page" class="heading-space">
+      
+       <nav class="navbar navbar-expand-lg navbar-light  bg-light fixed-top  general-navbar">
+            <a class="navbar-brand" href="#">
+               <img src="img/User-Profile/logo.png" alt="Logo" width="180px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="searchpage.html">Search Notes</a>
+                    </li>
+                    <li class="nav-item">
+                       <a class="nav-link" href="dashboard.html">Sell Your Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="buyerrequests.html">Buyer Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contactus.html">Contact Us</a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                            <a class="nav-link navbar-user-photo" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="userprofile.html">My Profile</a>
+                                <a class="dropdown-item" href="mydownloads.html">My Downloads</a>
+                                <a class="dropdown-item" href="mysoldnotes.html">My Sold Notes</a>
+                                <a class="dropdown-item" href="myrejectednotes.html">My Rejected Notes</a>
+                                <a class="dropdown-item" href="changepassword.html">Change Password</a>
+                                <a class="dropdown-item row-color" href="#"><b>Logout</b></a>
+                            </div>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                        <form class="form-inline my-2 my-lg-0">
+                           <button class="btn btn-nav-login" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+                
+            </div>
+        </nav> 
+        
+       
+       <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+                   
+                    <div class="col-md-12">
+                        <div id="dash-heading-left">
+                            <h4>Buyer Requests</h4>
+                        </div>
+                        <div id="dash-heading-right">
+                            <div class="form-group has-search" id="dash-left">
+                                <span class="fa fa-search form-control-feedback"></span>
+                                <input type="search" class="form-control search-field" placeholder="Search">
+                            </div>
+                            <div id="dash-right">
+                                <a class="btn  btn-home-1 smooth-scroll mb-2" role="button" href="#" title="Search">SEARCH</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      
+                       <div class="table-responsive" id="dash-table">
+                           <table class="table general-table">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">SR No.</th>
+                                      <th scope="col">NOTE TITLE</th>
+                                      <th scope="col">CATEGORY</th>
+                                      <th scope="col">BUYER</th>
+                                      <th scope="col">PHONE NO.</th>
+                                      <th scope="col">SELL TYPE</th>
+                                      <th scope="col">PRICE</th>
+                                      <th scope="col">DOWNLOADED DATE/TIME</th>
+                                      <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                      <td scope="row">1</td>
+                                      <td>Data Science</td>
+                                      <td>Science</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Paid</td>
+                                      <td>$250</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                            <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(1)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_1" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">2</td>
+                                      <td>Accounts</td>
+                                      <td>Commerce</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(2)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_2" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">3</td>
+                                      <td>Social Studies</td>
+                                      <td>Social</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(3)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_3" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">4</td>
+                                      <td>AI</td>
+                                      <td>IT</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Paid</td>
+                                      <td>$158</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(4)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_4" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">5</td>
+                                      <td>Lorem ipsum</td>
+                                      <td>Lorem</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(5)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_5" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">6</td>
+                                      <td>Data Science</td>
+                                      <td>Science</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Paid</td>
+                                      <td>$555</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(6)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_6" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">7</td>
+                                      <td>Accounts</td>
+                                      <td>Commerce</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(7)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_7" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">8</td>
+                                      <td>Social Studies</td>
+                                      <td>Social</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(8)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_8" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">9</td>
+                                      <td>AI</td>
+                                      <td>IT</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Paid</td>
+                                      <td>$250</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(9)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_9" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                      </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                      <td scope="row">10</td>
+                                      <td>Lorem ipsum</td>
+                                      <td>Lorem</td>
+                                      <td>testing123@gmail.com</td>
+                                      <td>9874563527</td>
+                                      <td>Free</td>
+                                      <td>$0</td>
+                                      <td>27 Nov 2020,11:24:34</td>
+                                      <td>
+                                         <div id="dash-img">
+                                                <img src="img/Dashboard/eye.png" alt="eye"/>
+                                                <div class="dropdown">
+                                                   <i onclick="mybuyerrequestDropdown(10)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div id="myDropdown_10" class="dropdown-content">
+                                                       <a href="#">Allow Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                      </td>
+                                    </tr>
+                                 
+                                </tbody>
+                            </table>
+                       </div>
+                        
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                           <a href="#"><i class="fa fa-angle-left"></i></a>
+                           <a href="#" class="active">1</a>
+                           <a href="#">2</a>
+                           <a href="#">3</a>
+                           <a href="#">4</a>
+                           <a href="#">5</a>
+                           <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+           <div class="container">
+              
+               <div class="row">
+                 
+                  <div class="col-md-10">
+                        <p>
+                         Copyright &copy; Tatvasoft All Rights Reserved
+                        </p>
+                   </div>
+                   
+                   <div class="col-md-2 text-center">
+                       <ul class="social-list">
+                            <li>
+                                <a href="#">
+                                 <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                  <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </li>
+                        </ul>
+                   </div>
+                </div>
+            </div>
+        </footer>
+        
+    </section>
+   
+    <!-- Jquery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    
+</body>
+
+</html>
