@@ -1,0 +1,59 @@
+@media(min-width: 992px) and (max-width: 1199px) {
+    .flex-container  div {
+        padding: 28px 125px 15px 15px;
+    }
+    
+    .dashboard-border {
+        margin-top: 15px;
+    }
+    
+    #dash-flex h3{
+        margin-left: 30px;
+    }
+    
+    #dash-flex p {
+        margin-left: 50px;
+    }
+    
+    #dimg {
+        margin-left: 35px;
+    }
+}
+
+
+
+
+@media(min-width: 768px) and (max-width: 992px) {
+    
+    #customer-heading {
+        margin-left: 40px;
+    }
+    
+    .card-title {
+        font-size: 12px;
+    }
+    
+    .flex-container  div {
+        padding: 28px 75px 15px 15px;
+    }
+    
+    .dashboard-border {
+        margin-top: 15px;
+    }
+    
+    #dimg {
+        margin-left: 20px;
+    }
+}
+
+@media(max-width: 320px) {
+    
+    #dash-flex h3{
+        font-size: 15px;
+    }
+    
+    #dash-flex p {
+        font-size: 10px;
+    }
+    
+}

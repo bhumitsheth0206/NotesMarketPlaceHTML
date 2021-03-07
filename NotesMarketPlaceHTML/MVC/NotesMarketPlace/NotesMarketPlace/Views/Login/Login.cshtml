@@ -1,0 +1,87 @@
+﻿@model NotesMarketPlace.Models.Login
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+
+<body>
+    <div id="loginpage" class="bg-image">
+        <div class="text-center">
+            <img src="~/Content/User/pre-login/top-logo.png" alt="logo" id="logo-img" width="180" height="30" />
+        </div>
+        <div class="form-container">
+            @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post))
+            {
+
+                <div class="title-heading">
+                    <h3>Login</h3>
+                    <p>Enter your email address and password to login</p>
+                </div>
+                <div id="login-msg">
+                    <p>@TempData["ErrorMsg"]</p>
+                </div>
+                <div class="form-group" id="form-mail">
+                    <label for="mail" class="label-text">Email</label>
+                    @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @placeholder = "Enter your email" })
+                    @Html.ValidationMessageFor(x => x.EmailID)
+                </div>
+
+                <div class="form-group" id="form-passwd">
+                    <label for="password" class="label-text">Password</label>
+                    <label for="password" class="label-text" id="forgot-password"><a href="Forgotpassword">Forgot Password?</a></label>
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control label-text", @placeholder = "Enter your password" })
+                    @Html.ValidationMessageFor(x => x.Password)
+                    <span toggle="#password" class="fa fa-eye field-icon toggle-password" aria-hidden="true"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck" name="RememberMe">
+                    <label class="form-check-label label-text" for="exampleCheck1">Remember Me</label>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary btn-block" id="login-button">LOGIN</button>
+
+                <div class="login-bottom label-text">
+                    <p>Don't have an account? <a href="Signup">Sign Up</a></p>
+                </div>
+
+            }
+        </div>
+    </div>
+    <!-- Jquery -->
+    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+</body>
+
+</html>

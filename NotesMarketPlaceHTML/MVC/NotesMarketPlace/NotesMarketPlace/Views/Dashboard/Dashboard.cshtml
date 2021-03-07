@@ -1,0 +1,339 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<NotesMarketPlace.Context.NoteDetails>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+<body>
+    <section id="dashboard-page">
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div id="dash-heading-left">
+                            <h2>Dashboard</h2>
+                        </div>
+                        <div id="dash-heading-right">
+                            <a class="btn  btn-home-1 smooth-scroll" role="button" href="@Url.Action("AddNotes","AddNotes")" title="Add Note">ADD NOTE</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Left -->
+                    <div class="col-xl-6">
+                        <div class="flex-container" id="dash-flex">
+                            <div id="dash-item-1" class="text-center">
+                                <img src="~/Content/User/Dashboard/earning-icon.svg" class="img-responsive" id="dimg" />
+                                <p>My Earnings</p>
+                            </div>
+                            <div class="text-center">
+                                <h3>100</h3>
+                                <p>Number of Notes Sold</p>
+                            </div>
+                            <div class="text-center">
+                                <h3>$10,00,000</h3>
+                                <p>Money Earned</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Right -->
+                    <div class="col-xl-6">
+                        <div class="row" align="center">
+                            <div class="col-md-4">
+                                <div class="dashboard-border">
+                                    <h3>38</h3>
+                                    <p>My Downloads</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="dashboard-border">
+                                    <h3>12</h3>
+                                    <p>My Rejected Notes</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="dashboard-border">
+                                    <h3>102</h3>
+                                    <p>Buyes Requests</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -01 -->
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("Dashboard", "Dashboard", FormMethod.Get))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>In Progress Notes</h4>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" placeholder="Search" name="search">
+                                </div>
+                                <div id="dash-right">
+                                    <button type="submit" class="btn  btn-home-1 smooth-scroll mb-2">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">@Html.ActionLink("ADDED DATE", "Dashboard", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("TITLE", "Dashboard", new { sortBy = ViewBag.SortNoteTitle, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "Dashboard", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">STATUS</th>
+                                        <th scope="col">ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(Model.Count()==0)
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td scope="row">@item.CreatedDate.Value.ToShortDateString()</td>
+                                            <td>@item.NoteTitle</td>
+                                            <td>@item.AddCategory.CategoryName</td>
+                                            <td>@item.ReferenceData.Value</td>
+                                            @if (@item.ReferenceData.Value == "Draft")
+                                            {
+                                                <td>
+
+                                                    <div id="dash-img">
+                                                        <a href="@Url.Action("AddNotes","AddNotes",new { ID = item.ID })"> <img src="~/Content/User/Dashboard/edit.png" alt="pencil" /></a>
+                                                        
+                                                        <a href="@Url.Action("DeleteRecord","Dashboard",new {id = item.ID })" onclick="return confirm('Do you want to delete the record?')"> <i class="fa fa-trash" id="ellipsis"></i></a>
+                                                       
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <div id="dash-img">
+                                                        <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                                    </div>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 justify-content-center">
+                        <div class="pagination">
+                           @Html.PagedListPager(Model,page => Url.Action("Dashboard", new { page, search = Request.QueryString["search"]}))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -02 -->
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div id="dash-heading-left">
+                            <h4>Published Notes</h4>
+                        </div>
+                        <div id="dash-heading-right">
+                            <div class="form-group has-search" id="dash-left">
+                                <span class="fa fa-search form-control-feedback"></span>
+                                <input type="search" class="form-control search-field" placeholder="Search">
+                            </div>
+                            <div id="dash-right">
+                                <a class="btn  btn-home-1 smooth-scroll" role="button" href="#" title="Search">SEARCH</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">@Html.ActionLink("ADDED DATE", "Dashboard", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("TITLE", "Dashboard", new { sortBy = ViewBag.SortNoteTitle, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "Dashboard", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">SELL TYPE</th>
+                                        <th scope="col">PRICE</th>
+                                        <th scope="col">ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row">09-10-2020</td>
+                                        <td>Data Science</td>
+                                        <td>Science</td>
+                                        <td>Paid</td>
+                                        <td>$575</td>
+                                        <td>
+                                            <div id="dash-img">
+                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">10-10-2020</td>
+                                        <td>Accounts</td>
+                                        <td>Commerce</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>
+                                            <div id="dash-img">
+                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">11-10-2020</td>
+                                        <td>Social Studies</td>
+                                        <td>Social</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>
+                                            <div id="dash-img">
+                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">12-10-2020</td>
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Paid</td>
+                                        <td>$3542</td>
+                                        <td>
+                                            <div id="dash-img">
+                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">13-10-2020</td>
+                                        <td>Lorem ipsum dolor sit amet</td>
+                                        <td>Lorem</td>
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                        <td>
+                                            <div id="dash-img">
+                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-12 align-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("Dashboard", new { page }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Jquery -->
+    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+</body>
+</html>

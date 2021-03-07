@@ -1,0 +1,154 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<NotesMarketPlace.Context.NoteDetails>
+
+@{
+    ViewBag.Title = "BuyerRequest";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
+}
+
+@{  int cnt = 0;}
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+<body>
+    <section id="buyerrequests-page" class="heading-space">
+
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("BuyerRequest", "BuyerRequest", FormMethod.Get))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>Buyer Requests</h4>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" placeholder="Search" name="search">
+                                </div>
+                                <div id="dash-right">
+                                    <button type="submit" class="btn  btn-home-1 smooth-scroll mb-2">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table general-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR No.</th>
+                                        <th scope="col">@Html.ActionLink("NOTE TITLE", "BuyerRequest", new { sortBy = ViewBag.SortNoteTitle, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "BuyerRequest", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">BUYER</th>
+                                        <th scope="col">PHONE NO.</th>
+                                        <th scope="col">SELL TYPE</th>
+                                        <th scope="col">PRICE</th>
+                                        <th scope="col">@Html.ActionLink("DOWNLOADED DATE/TIME", "BuyerRequest", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="10" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        cnt = cnt + 1;
+                                        <tr>
+                                            <td scope="row">@cnt</td>
+                                            <td>@item.NoteTitle</td>
+                                            <td>@item.AddCategory.CategoryName</td>
+                                            <td>testing@gmail.com</td>
+                                            <td>9427494840</td>
+                                            <td>@item.IsPaid</td>
+                                            <td>@item.SellPrice</td>
+                                            <td>@item.CreatedDate</td>
+                                            <td>
+                                                <div id="dash-img">
+                                                    <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                                    <div class="dropdown">
+                                                        <i onclick="mybuyerrequestDropdown(1)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                        <div id="myDropdown_1" class="dropdown-content">
+                                                            <a href="#">Allow Download</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("BuyerRequest", new { page, search = Request.QueryString["search"] }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Jquery -->
+        <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+        <!-- Validation -->
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+        <!-- Custom JS -->
+        <script src="~/Scripts/User/script.js"></script>
+
+    </section>
+</body>
+
+

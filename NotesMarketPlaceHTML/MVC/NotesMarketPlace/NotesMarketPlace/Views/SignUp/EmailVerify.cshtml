@@ -1,0 +1,63 @@
+﻿@model NotesMarketPlace.Context.Users
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+
+<body>
+    <div id="emailverify-page" class="bg-image">
+        <div id="message-container">
+            <img src="~/Content/User/User-Profile/logo.png" alt="Logo" class="text-left">
+
+            <div id="emailverify-page-content" class="text-left">
+                <h3>Email Verification</h3>
+                <h5>Dear  @TempData["UserName"],</h5>
+                <p>Thanks for Signing up!<br> Simply click below for email verification.</p>
+            </div>
+            @Html.ActionLink("Verify Email Address", "VerifyAccount", "SignUp", new { emailid = Model.EmailID }, new { @class = "btn btn-primary btn-block" , @id = "login-button-2" })
+            
+        </div>
+    </div>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,322 @@
+﻿
+@model NotesMarketPlace.Models.addnotes
+
+@{
+    ViewBag.Title = "Addnotes";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+
+<body>
+    <section id="addnotes-page" class="heading-space-img">
+
+        <div id="addnotes-header">
+            <div class="container">
+                <div id="addnotes-title" class="text-center">
+                    <h2>Add Notes</h2>
+                </div>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("AddNotes", "AddNotes", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.ID)
+            <!-- Basic Note Details -->
+            <div class="content-box-md">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Title -->
+                        <div class="col-md-12">
+                            <div class="addnote-heading">
+                                <h3>Basic Note Details</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="addnote-form-1">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Title*  @Html.ValidationMessageFor(x => x.NoteTitle, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.NoteTitle, new { @class = "form-control label-text", @placeholder = "Enter your notes title" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-group-1">
+                                            <label for="category" class="label-text">Category*  @Html.ValidationMessageFor(x => x.CategoryID, "", new { @class = "Error" })</label>
+                                            @Html.DropDownListFor(x => x.CategoryID, new SelectList(Model.Category,"ID", "CategoryName"), "Select your category", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="profile-picture" class="label-text">Profile Picture</label>
+                                        <div class="image-upload text-center">
+                                            <label for="upload-picture">
+                                                <img src="~/Content/User/Add-notes/upload-file.png" />
+                                                @Html.TextBoxFor(x => x.DisplayPicture, new { @type = "file", @id = "upload-picture", @name = "file", @onchange = "return picturevalidation()" })
+                                            </label>
+                                        </div>
+                                        <span id="uploadpicture-error"></span>
+                                    </div>
+
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="profile-picture" class="label-text">Upload Notes*   @Html.ValidationMessageFor(x => x.UploadNotes, "", new { @class = "Error" })</label>
+                                        <div class="image-upload text-center">
+                                            <label for="upload-notes">
+                                                <img src="~/Content/User/Add-notes/upload-note.svg" />
+                                                @Html.TextBoxFor(x => x.UploadNotes, new { @type = "file", @id = "upload-notes", @name = "file", @onchange = "return notesvalidation()", @multiple = "multiple" })
+                                            </label>
+                                        </div>
+                                        <span id="uploadnotes-error"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-group-1">
+                                            <label for="category" class="label-text">Type</label>
+                                            @Html.DropDownListFor(x => x.TypeID, new SelectList(Model.Type, "ID", "Type"), "Select your type", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Number of Pages</label>
+                                            @Html.TextBoxFor(x => x.NumberOfPages, new { @class = "form-control label-text", @placeholder = "Enter number of note pages" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Description*  @Html.ValidationMessageFor(x => x.Description, "", new { @class = "Error" })</label>
+                                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @id = "discpton", @rows = "12", @placeholder = "Enter your Discription" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Institution Information -->
+            <div class="content-box-md">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Title -->
+                        <div class="col-md-12">
+                            <div class="addnote-heading">
+                                <h3>Institution Information</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="addnote-form-2">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-group-1">
+                                            <label for="country" class="label-text">Country</label>
+                                            @Html.DropDownListFor(x => x.CountryID, new SelectList(Model.Country, "ID", "CountryName"), "Select your country", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Institution Name</label>
+                                            @Html.TextBoxFor(x => x.InstitutionName, new { @class = "form-control label-text", @placeholder = "Enter your institution name" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Details -->
+            <div class="content-box-md">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Title -->
+                        <div class="col-md-12">
+                            <div class="addnote-heading">
+                                <h3>Course Details</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="addnote-form-2">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Course Name</label>
+                                            @Html.TextBoxFor(x => x.Course, new { @class = "form-control label-text", @placeholder = "Enter your course name" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Course Code</label>
+                                            @Html.TextBoxFor(x => x.CourseCode, new { @class = "form-control label-text", @placeholder = "Enter your course code" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Professor / Lecturer</label>
+                                            @Html.TextBoxFor(x => x.Professor, new { @class = "form-control label-text", @placeholder = "Enter your professor name" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selling Information -->
+            <div class="content-box-md">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Title -->
+                        <div class="col-md-12">
+                            <div class="addnote-heading">
+                                <h3>Selling Information</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div id="addnote-form-3">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Sell For*</label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="radio-container form-check-inline">
+
+                                                        <input type="radio" value="False" name="IsPaid" class="form-check-input" checked />
+                                                        <label for="radio">Free</label>
+
+
+                                                    </div>
+                                                    <div class="radio-container form-check-inline">
+
+                                                        <input type="radio" value="True" name="IsPaid" class="form-check-input enable_tb" />
+                                                        <label for="radio">Sell</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.IsPaid, "", new { @class = "Error" })
+                                        </div>
+
+                                        <div class="form-group sell-price" id="form-ftext">
+                                            <label for="fname" class="label-text">Sell Price*   @Html.ValidationMessageFor(x => x.SellPrice, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.SellPrice, new { @class = "form-control label-text", @placeholder = "Enter your price here", @id = "sell-price", @disabled = "disabled" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="profile-picture" class="label-text">Note Preview</label>
+                                        <div class="image-upload-1 text-center">
+                                            <label for="upload-picture">
+                                                <img src="~/Content/User/Add-notes/upload-file.png" />
+                                                @Html.TextBoxFor(x => x.NotesPreview, new { @type = "file", @id = "upload-picture", @name = "file" })
+                                                @Html.ValidationMessageFor(x => x.NotesPreview, "", new { @class = "Error" })
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <button type="submit" class="btn btn-general btn-home-1">SAVE</button>
+                                            </div>
+
+                                           
+                                            <div class="col-md-3">
+                                                <button type="submit" class="btn btn-general btn-home-1">PUBLISH</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </section>
+    <!-- Jquery -->
+    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+</body>
+
+</html>

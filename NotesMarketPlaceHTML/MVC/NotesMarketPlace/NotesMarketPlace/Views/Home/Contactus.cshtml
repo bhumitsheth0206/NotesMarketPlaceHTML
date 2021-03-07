@@ -1,0 +1,124 @@
+﻿@model NotesMarketPlace.Models.ContactUs
+
+@{
+    ViewBag.Title = "Contactus";
+    Layout = "~/Views/Shared/NavHeader.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+</head>
+
+<body>
+    <section id="contactus-page" class="heading-space-img">
+
+        <div id="contactus-header">
+            <div class="container">
+                <div id="contactus-title" class="text-center">
+                    <h2>Contact Us</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="contactus-heading">
+                            <h3>Get In Touch</h3>
+                        </div>
+                        <div class="contactus-heading-bottom">
+                            <h6>Let us know how to get back to you</h6>
+                        </div>
+                    </div>
+
+                    <!-- Form Portion -->
+                    <div class="col-md-12">
+                        <div id="contact-us-form">
+                            @using (Html.BeginForm("AddContact", "Home",FormMethod.Post))
+                            {
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Full Name* @Html.ValidationMessageFor(x => x.FullName, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control label-text", @id = "fullname", @placeholder = "Enter your Full Name" })    
+                                        </div>
+
+                                        <div class="form-group" id="form-mail">
+                                            <label for="mail" class="label-text">Email*  @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @id = "mail", @placeholder = "Enter your Email" })
+                                        </div>
+
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Subject*  @Html.ValidationMessageFor(x => x.Subject, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.Subject, new { @class = "form-control label-text", @id = "subject", @placeholder = "Enter your Subject" }) 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="form-ftext">
+                                            <label for="fname" class="label-text">Comments/Questions*  @Html.ValidationMessageFor(x => x.Comments, "", new { @class = "Error" })</label>
+                                            @Html.TextAreaFor(x => x.Comments, new { @class = "form-control", @placeholder = "Comments...", @rows = "12" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary" id="login-button">SUBMIT</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+</body>
+
+</html>
+
