@@ -101,118 +101,199 @@ namespace Notes_MarketPlace.Controllers
                 }
 
                 var statusvalue = "Draft";
-                ReferenceData refdata = dobj.ReferenceData.Where(x => x.RefCategory == "NotesStatus" && x.DataValue == statusvalue && x.IsActive == true).FirstOrDefault();
+                ReferenceData refdata = dobj.ReferenceData.Where(x => x.RefCategory == "NotesStatus" && x.Datavalue == statusvalue && x.IsActive == true).FirstOrDefault();
 
                 //Saving into database
 
-                NoteDetails ndetails = new NoteDetails();
-                ndetails.ID = model.ID;
-                ndetails.UID = obj.ID;
-                ndetails.Status = refdata.ID;
-                ndetails.NoteTitle = model.NoteTitle;
-                ndetails.CategoryID = model.CategoryID;
-                ndetails.Description = model.Description;
-                ndetails.IsPaid = model.IsPaid;
-                ndetails.TypeID = model.TypeID;
-                ndetails.NumberOfPages = model.NumberOfPages;
-                ndetails.InstitutionName = model.InstitutionName;
-                ndetails.CountryID = model.CountryID;
-                ndetails.Course = model.Course;
-                ndetails.CourseCode = model.CourseCode;
-                ndetails.Professor = model.Professor;
-                ndetails.SellPrice = model.SellPrice;
-                ndetails.CreatedDate = DateTime.Now;
-                ndetails.IsActive = true;
-                ndetails.CreatedBy = obj.ID;
+                
 
                 if (model.ID == 0)
                 {
-                    
-
+                    NoteDetails ndetails = new NoteDetails();
+                    ndetails.ID = model.ID;
+                    ndetails.UID = obj.ID;
+                    ndetails.Status = refdata.ID;
+                    ndetails.NoteTitle = model.NoteTitle;
+                    ndetails.CategoryID = model.CategoryID;
+                    ndetails.Description = model.Description;
+                    ndetails.IsPaid = model.IsPaid;
+                    ndetails.TypeID = model.TypeID;
+                    ndetails.NumberOfPages = model.NumberOfPages;
+                    ndetails.InstitutionName = model.InstitutionName;
+                    ndetails.CountryID = model.CountryID;
+                    ndetails.Course = model.Course;
+                    ndetails.CourseCode = model.CourseCode;
+                    ndetails.Professor = model.Professor;
+                    ndetails.SellPrice = model.SellPrice;
+                    ndetails.CreatedDate = DateTime.Now;
+                    ndetails.IsActive = true;
+                    ndetails.CreatedBy = obj.ID;
                     dobj.NoteDetails.Add(ndetails);
                     dobj.SaveChanges();
+
+
+                    //Acquiring NoteID
+
+                    var NoteID = ndetails.ID;
+                    string finalpath = Path.Combine(Server.MapPath("~/Members/" + obj.ID), NoteID.ToString());
+
+                    if (!Directory.Exists(finalpath))
+                    {
+                        Directory.CreateDirectory(finalpath);
+                    }
+
+                    //Display Picture
+                    if (model.DisplayPicture != null && model.DisplayPicture.ContentLength > 0)
+                    {
+                        var displayimagename = "DP_" + DateTime.Now.ToString("dd-MM-yy").Replace(':', '-').Replace(' ', '_') + Path.GetExtension(model.DisplayPicture.FileName);
+                        var ImageSavePath = Path.Combine(Server.MapPath("/Members/" + obj.ID + "/" + ndetails.ID + "/") + displayimagename);
+                        model.DisplayPicture.SaveAs(ImageSavePath);
+                        ndetails.DisplayPicture = Path.Combine(("/Members/" + obj.ID + "/" + ndetails.ID + "/"), displayimagename);
+                        dobj.SaveChanges();
+                    }
+
+                    //Notes Preview
+                    if (model.NotesPreview != null && model.NotesPreview.ContentLength > 0)
+                    {
+                        var notespreviewname = "Preview_" + DateTime.Now.ToString("dd-MM-yy").Replace(':', '-').Replace(' ', '_') + Path.GetExtension(model.NotesPreview.FileName);
+                        var PreviewSavePath = Path.Combine(Server.MapPath("/Members/" + obj.ID + "/" + ndetails.ID + "/") + notespreviewname);
+                        model.NotesPreview.SaveAs(PreviewSavePath);
+                        ndetails.NotesPreview = Path.Combine(("/Members/" + obj.ID + "/" + ndetails.ID + "/"), notespreviewname);
+                        dobj.SaveChanges();
+                    }
+
+                    //Upload Notes
+                    //Seller Notes Attachment
+                    SellerNotesAttachments sellnotesattach = new SellerNotesAttachments();
+                    sellnotesattach.NoteID = NoteID;
+                    sellnotesattach.IsActive = true;
+                    sellnotesattach.CreatedBy = obj.ID;
+                    sellnotesattach.CreatedDate = DateTime.Now;
+
+                    string storeUploadPath = Path.Combine(finalpath, "Attachment");
+
+                    if (!Directory.Exists(storeUploadPath))
+                    {
+                        Directory.CreateDirectory(storeUploadPath);
+                    }
+
+                    //Upload Notes
+                    int count = 1;
+                    var uploadfilepath = "";
+                    var uploadfilename = "";
+
+                    foreach (HttpPostedFileBase file in model.UploadNotes)
+                    {
+                        string _FileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        string extension = Path.GetExtension(file.FileName);
+                        _FileName = "Attachment" + count + "_" + DateTime.Now.ToString("dd-MM-yy") + extension;
+                        string final = Path.Combine(storeUploadPath, _FileName);
+                        file.SaveAs(final);
+                        uploadfilename += _FileName + ";";
+                        uploadfilepath += Path.Combine(("/Members/" + obj.ID + "/" + NoteID + "/Attachment/"), _FileName);
+                        count++;
+
+                    }
+
+                    sellnotesattach.FileName = uploadfilename;
+                    sellnotesattach.FilePath = uploadfilepath;
+                    dobj.SellerNotesAttachments.Add(sellnotesattach);
+                    dobj.SaveChanges();
+                    return RedirectToAction("Home", "Home");
+
                 }
+
+                //Editing Notes
                 else
                 {
+                    NoteDetails ndetails = dobj.NoteDetails.Where(x => x.ID == model.ID).FirstOrDefault();
+                    ndetails.Status = refdata.ID;
+                    ndetails.NoteTitle = model.NoteTitle;
+                    ndetails.CategoryID = model.CategoryID;
+                    ndetails.Description = model.Description;
+                    ndetails.IsPaid = model.IsPaid;
+                    ndetails.TypeID = model.TypeID;
+                    ndetails.NumberOfPages = model.NumberOfPages;
+                    ndetails.InstitutionName = model.InstitutionName;
+                    ndetails.CountryID = model.CountryID;
+                    ndetails.Course = model.Course;
+                    ndetails.CourseCode = model.CourseCode;
+                    ndetails.Professor = model.Professor;
+                    ndetails.SellPrice = model.SellPrice;
+                    ndetails.ModifiedDate = DateTime.Now;
+                    ndetails.IsActive = true;
+                    ndetails.ModifiedBy = obj.ID;
                     dobj.Entry(ndetails).State = EntityState.Modified;
                     dobj.SaveChanges();
-                }
-                //Acquiring NoteID
 
-                var NoteID = ndetails.ID;
-                string finalpath = Path.Combine(Server.MapPath("~/Members/" + obj.ID), NoteID.ToString());
+                    //Acquiring NoteID
 
-                if(!Directory.Exists(finalpath))
-                {
-                    Directory.CreateDirectory(finalpath);
-                }
+                    var NoteID = ndetails.ID;
+                    string finalpath = Path.Combine(Server.MapPath("~/Members/" + obj.ID), NoteID.ToString());
+                    Directory.Delete(finalpath,true);
 
-                //Display Picture
-                if(model.DisplayPicture!=null && model.DisplayPicture.ContentLength>0)
-                {
-                    var displayimagename = DateTime.Now.ToString().Replace(':', '-').Replace(' ', '_') + Path.GetExtension(model.DisplayPicture.FileName);
-                    var ImageSavePath = Path.Combine(Server.MapPath("~/Members/" + obj.ID + "/" + ndetails.ID + "/") + "DP_" + displayimagename);
-                    model.DisplayPicture.SaveAs(ImageSavePath);
-                    ndetails.DisplayPicture = Path.Combine(("~/Members/" + obj.ID + "/" + ndetails.ID + "/"), displayimagename);
+                    if (!Directory.Exists(finalpath))
+                    {
+                        Directory.CreateDirectory(finalpath);
+                    }
+
+                    //Display Picture
+                    if (model.DisplayPicture != null && model.DisplayPicture.ContentLength > 0)
+                    {
+                        var displayimagename = "DP_" + DateTime.Now.ToString("dd-MM-yy").Replace(':', '-').Replace(' ', '_') + Path.GetExtension(model.DisplayPicture.FileName);
+                        var ImageSavePath = Path.Combine(Server.MapPath("/Members/" + obj.ID + "/" + ndetails.ID + "/") + displayimagename);
+                        model.DisplayPicture.SaveAs(ImageSavePath);
+                        ndetails.DisplayPicture = Path.Combine(("/Members/" + obj.ID + "/" + ndetails.ID + "/"), displayimagename);
+                        dobj.SaveChanges();
+                    }
+
+                    //Notes Preview
+                    if (model.NotesPreview != null && model.NotesPreview.ContentLength > 0)
+                    {
+                        var notespreviewname = "Preview_" + DateTime.Now.ToString("dd-MM-yy").Replace(':', '-').Replace(' ', '_') + Path.GetExtension(model.NotesPreview.FileName);
+                        var PreviewSavePath = Path.Combine(Server.MapPath("/Members/" + obj.ID + "/" + ndetails.ID + "/") + notespreviewname);
+                        model.NotesPreview.SaveAs(PreviewSavePath);
+                        ndetails.NotesPreview = Path.Combine(("/Members/" + obj.ID + "/" + ndetails.ID + "/"), notespreviewname);
+                        dobj.SaveChanges();
+                    }
+
+                    //Upload Notes
+                    //Seller Notes Attachment
+                    SellerNotesAttachments sellnotesattach = dobj.SellerNotesAttachments.Where(x => x.NoteID == NoteID).FirstOrDefault();
+                    sellnotesattach.ModifiedDate = DateTime.Now;
+
+                    string storeUploadPath = Path.Combine(finalpath, "Attachment");
+
+                    if (!Directory.Exists(storeUploadPath))
+                    {
+                        Directory.CreateDirectory(storeUploadPath);
+                    }
+
+                    //Upload Notes
+                    int count = 1;
+                    var uploadfilepath = "";
+                    var uploadfilename = "";
+
+                    foreach (HttpPostedFileBase file in model.UploadNotes)
+                    {
+                        string _FileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        string extension = Path.GetExtension(file.FileName);
+                        _FileName = "Attachment" + count + "_" + DateTime.Now.ToString("dd-MM-yy") + extension;
+                        string final = Path.Combine(storeUploadPath, _FileName);
+                        file.SaveAs(final);
+                        uploadfilename += _FileName + ";";
+                        uploadfilepath += Path.Combine(("/Members/" + obj.ID + "/" + NoteID + "/Attachment/"), _FileName);
+                        count++;
+
+                    }
+
+                    sellnotesattach.FileName = uploadfilename;
+                    sellnotesattach.FilePath = uploadfilepath;
+                    dobj.Entry(sellnotesattach).State = EntityState.Modified;
                     dobj.SaveChanges();
+                    return RedirectToAction("Home", "Home");
                 }
-
-                else
-                {
-                    ndetails.DisplayPicture = "C:/Users/abc/source/repos/NotesMarketPlace/NotesMarketPlace/DefaultImg/customer-3.png";
-                    dobj.SaveChanges();
-                }
-
-                //Notes Preview
-                if (model.NotesPreview != null && model.NotesPreview.ContentLength > 0)
-                {
-                    var notespreviewname = Path.GetFileName(model.NotesPreview.FileName);
-                    var PreviewSavePath = Path.Combine(Server.MapPath("~/Members/" + obj.ID + "/" + ndetails.ID + "/") + "Preview_" + DateTime.Now.ToString().Replace(':', '-').Replace(' ', '_') + "_" + notespreviewname);
-                    model.NotesPreview.SaveAs(PreviewSavePath);
-                    ndetails.NotesPreview = Path.Combine(("~/Members/" + obj.ID + "/" + ndetails.ID + "/"), notespreviewname);
-                    dobj.SaveChanges();
-                }
-
-
-
-                //Upload Notes
-                //Seller Notes Attachment
-                SellerNotesAttachments sellnotesattach = new SellerNotesAttachments();
-                sellnotesattach.NoteID = NoteID;
-                sellnotesattach.IsActive = true;
-                sellnotesattach.CreatedBy = obj.ID;
-                sellnotesattach.CreatedDate = DateTime.Now;
-
-                string storeUploadPath = Path.Combine(finalpath, "Attachment");
-
-                if (!Directory.Exists(storeUploadPath))
-                {
-                    Directory.CreateDirectory(storeUploadPath);
-                }
-
-                //Upload Notes
-                int count = 1;
-                var uploadfilepath = "";
-                var uploadfilename = "";
-
-                foreach(HttpPostedFileBase file in model.UploadNotes)
-                {
-                    string _FileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extension = Path.GetExtension(file.FileName);
-                    _FileName = "Attachment" + count + "_" + DateTime.Now.ToString("ddmmyyyy") + extension;
-                    string final= Path.Combine(storeUploadPath, _FileName);
-                    file.SaveAs(final);
-                    uploadfilename += _FileName + ";" ;
-                    uploadfilepath += Path.Combine(("/Members/" + obj.ID + "/" + NoteID + "/Attachment/"), _FileName);
-                    count++;
-
-                }
-
-                sellnotesattach.FileName = uploadfilename;
-                sellnotesattach.FilePath = uploadfilepath;
-                dobj.SellerNotesAttachments.Add(sellnotesattach);
-                dobj.SaveChanges();
-                return RedirectToAction("Home", "Home");
+                
             }
             return RedirectToAction("Home", "Home"); 
         }

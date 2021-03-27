@@ -145,7 +145,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Value" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="DataValue" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Datavalue" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="RefCategory" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="CreatedBy" Type="int" />
@@ -189,10 +189,10 @@
     <Property Name="UID" Type="int" Nullable="false" />
     <Property Name="SecondaryEmail" Type="varchar" MaxLength="100" />
     <Property Name="DateOfBirth" Type="datetime" />
-    <Property Name="Gender" Type="int" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
     <Property Name="PhoneNumber_CountryCode" Type="varchar" MaxLength="4" Nullable="false" />
     <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="ProfilePicture" Type="varbinary(max)" />
+    <Property Name="ProfilePicture" Type="varchar(max)" />
     <Property Name="AddressLine_1" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="AddressLine_2" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
@@ -428,30 +428,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_NoteDetails_NoteDetails">
-    <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-    <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="NoteDetails">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="NoteDetails1">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_NoteDetails_NoteDetails1">
-    <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-    <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="NoteDetails">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="NoteDetails1">
-        <PropertyRef Name="ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_NoteDetails_ReferenceData">
     <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="1" />
     <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="*" />
@@ -461,18 +437,6 @@
       </Principal>
       <Dependent Role="NoteDetails">
         <PropertyRef Name="Status" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserProfile_ReferenceData">
-    <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="0..1" />
-    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ReferenceData">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="UserProfile">
-        <PropertyRef Name="Gender" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -555,21 +519,9 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Downloads" EntitySet="Downloads" />
     </AssociationSet>
-    <AssociationSet Name="FK_NoteDetails_NoteDetails" Association="Self.FK_NoteDetails_NoteDetails">
-      <End Role="NoteDetails" EntitySet="NoteDetails" />
-      <End Role="NoteDetails1" EntitySet="NoteDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_NoteDetails_NoteDetails1" Association="Self.FK_NoteDetails_NoteDetails1">
-      <End Role="NoteDetails" EntitySet="NoteDetails" />
-      <End Role="NoteDetails1" EntitySet="NoteDetails" />
-    </AssociationSet>
     <AssociationSet Name="FK_NoteDetails_ReferenceData" Association="Self.FK_NoteDetails_ReferenceData">
       <End Role="ReferenceData" EntitySet="ReferenceData" />
       <End Role="NoteDetails" EntitySet="NoteDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserProfile_ReferenceData" Association="Self.FK_UserProfile_ReferenceData">
-      <End Role="ReferenceData" EntitySet="ReferenceData" />
-      <End Role="UserProfile" EntitySet="UserProfile" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

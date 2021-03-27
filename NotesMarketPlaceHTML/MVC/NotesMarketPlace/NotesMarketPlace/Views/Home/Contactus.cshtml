@@ -1,8 +1,8 @@
-﻿@model NotesMarketPlace.Models.ContactUs
+﻿@model NotesMarketPlace.Models.contactus
 
 @{
     ViewBag.Title = "Contactus";
-    Layout = "~/Views/Shared/NavHeader.cshtml";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
 }
 
 <!DOCTYPE html>
@@ -32,6 +32,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
 
 </head>
 
@@ -63,7 +66,7 @@
                     <!-- Form Portion -->
                     <div class="col-md-12">
                         <div id="contact-us-form">
-                            @using (Html.BeginForm("AddContact", "Home",FormMethod.Post))
+                            @using (Html.BeginForm("Contactus", "Home", FormMethod.Post))
                             {
                                 <div class="row">
 
@@ -71,17 +74,29 @@
 
                                         <div class="form-group" id="form-ftext">
                                             <label for="fname" class="label-text">Full Name* @Html.ValidationMessageFor(x => x.FullName, "", new { @class = "Error" })</label>
-                                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control label-text", @id = "fullname", @placeholder = "Enter your Full Name" })    
+                                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control label-text", @id = "fullname", @placeholder = "Enter your Full Name" })
                                         </div>
 
-                                        <div class="form-group" id="form-mail">
-                                            <label for="mail" class="label-text">Email*  @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "Error" })</label>
-                                            @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @id = "mail", @placeholder = "Enter your Email" })
-                                        </div>
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="form-group" id="form-mail">
+                                                <label for="mail" class="label-text">Email* </label>
+                                                @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @id = "mail", @placeholder = "Enter your Email", @disabled = "disabled" })
+                                            </div>
+                                        }
+
+                                        else
+                                        {
+                                            <div class="form-group" id="form-mail">
+                                                <label for="mail" class="label-text">Email* </label>
+                                                @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @id = "mail", @placeholder = "Enter your Email" })
+                                            </div>
+                                        }
 
                                         <div class="form-group" id="form-ftext">
                                             <label for="fname" class="label-text">Subject*  @Html.ValidationMessageFor(x => x.Subject, "", new { @class = "Error" })</label>
-                                            @Html.TextBoxFor(x => x.Subject, new { @class = "form-control label-text", @id = "subject", @placeholder = "Enter your Subject" }) 
+                                            @Html.TextBoxFor(x => x.Subject, new { @class = "form-control label-text", @id = "subject", @placeholder = "Enter your Subject" })
                                         </div>
                                     </div>
 
@@ -106,15 +121,15 @@
 
     </section>
 
-    <!-- Jquery -->
-    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Validation -->
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/User/script.js"></script>

@@ -150,7 +150,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Value" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DataValue" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Datavalue" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="RefCategory" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
@@ -194,10 +194,10 @@
           <Property Name="UID" Type="int" Nullable="false" />
           <Property Name="SecondaryEmail" Type="varchar" MaxLength="100" />
           <Property Name="DateOfBirth" Type="datetime" />
-          <Property Name="Gender" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
           <Property Name="PhoneNumber_CountryCode" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="ProfilePicture" Type="varbinary(max)" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
           <Property Name="AddressLine_1" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AddressLine_2" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
@@ -433,30 +433,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NoteDetails_NoteDetails">
-          <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-          <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NoteDetails">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NoteDetails1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NoteDetails_NoteDetails1">
-          <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-          <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NoteDetails">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NoteDetails1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NoteDetails_ReferenceData">
           <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="1" />
           <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="*" />
@@ -466,18 +442,6 @@
             </Principal>
             <Dependent Role="NoteDetails">
               <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfile_ReferenceData">
-          <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="0..1" />
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceData">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="Gender" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -560,21 +524,9 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Downloads" EntitySet="Downloads" />
           </AssociationSet>
-          <AssociationSet Name="FK_NoteDetails_NoteDetails" Association="Self.FK_NoteDetails_NoteDetails">
-            <End Role="NoteDetails" EntitySet="NoteDetails" />
-            <End Role="NoteDetails1" EntitySet="NoteDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NoteDetails_NoteDetails1" Association="Self.FK_NoteDetails_NoteDetails1">
-            <End Role="NoteDetails" EntitySet="NoteDetails" />
-            <End Role="NoteDetails1" EntitySet="NoteDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_NoteDetails_ReferenceData" Association="Self.FK_NoteDetails_ReferenceData">
             <End Role="ReferenceData" EntitySet="ReferenceData" />
             <End Role="NoteDetails" EntitySet="NoteDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_ReferenceData" Association="Self.FK_UserProfile_ReferenceData">
-            <End Role="ReferenceData" EntitySet="ReferenceData" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -720,10 +672,6 @@
           <NavigationProperty Name="NoteReview" Relationship="Self.FK__NoteRevie__NoteI__19DFD96B" FromRole="NoteDetails" ToRole="NoteReview" />
           <NavigationProperty Name="SellerNotesAttachments" Relationship="Self.FK__SellerNot__NoteI__0A9D95DB" FromRole="NoteDetails" ToRole="SellerNotesAttachments" />
           <NavigationProperty Name="SpamReports" Relationship="Self.FK__SpamRepor__NoteI__14270015" FromRole="NoteDetails" ToRole="SpamReports" />
-          <NavigationProperty Name="NoteDetails1" Relationship="Self.FK_NoteDetails_NoteDetails" FromRole="NoteDetails" ToRole="NoteDetails1" />
-          <NavigationProperty Name="NoteDetails2" Relationship="Self.FK_NoteDetails_NoteDetails" FromRole="NoteDetails1" ToRole="NoteDetails" />
-          <NavigationProperty Name="NoteDetails11" Relationship="Self.FK_NoteDetails_NoteDetails1" FromRole="NoteDetails" ToRole="NoteDetails1" />
-          <NavigationProperty Name="NoteDetails3" Relationship="Self.FK_NoteDetails_NoteDetails1" FromRole="NoteDetails1" ToRole="NoteDetails" />
           <NavigationProperty Name="ReferenceData" Relationship="Self.FK_NoteDetails_ReferenceData" FromRole="NoteDetails" ToRole="ReferenceData" />
         </EntityType>
         <EntityType Name="NoteReview">
@@ -751,7 +699,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DataValue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Datavalue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RefCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
@@ -759,7 +707,6 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="NoteDetails" Relationship="Self.FK_NoteDetails_ReferenceData" FromRole="ReferenceData" ToRole="NoteDetails" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK_UserProfile_ReferenceData" FromRole="ReferenceData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="SellerNotesAttachments">
           <Key>
@@ -801,10 +748,10 @@
           <Property Name="UID" Type="Int32" Nullable="false" />
           <Property Name="SecondaryEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PhoneNumber_CountryCode" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProfilePicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="AddressLine_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AddressLine_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -817,7 +764,6 @@
           <Property Name="SubmittedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
-          <NavigationProperty Name="ReferenceData" Relationship="Self.FK_UserProfile_ReferenceData" FromRole="UserProfile" ToRole="ReferenceData" />
           <NavigationProperty Name="Users" Relationship="Self.FK__UserProfile__UID__7B5B524B" FromRole="UserProfile" ToRole="Users" />
         </EntityType>
         <EntityType Name="UserRoles">
@@ -1002,30 +948,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NoteDetails_NoteDetails">
-          <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-          <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NoteDetails">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NoteDetails1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NoteDetails_NoteDetails1">
-          <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="1" />
-          <End Role="NoteDetails1" Type="Self.NoteDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NoteDetails">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NoteDetails1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NoteDetails_ReferenceData">
           <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="1" />
           <End Role="NoteDetails" Type="Self.NoteDetails" Multiplicity="*" />
@@ -1047,18 +969,6 @@
             </Principal>
             <Dependent Role="NoteReview">
               <PropertyRef Name="ReviewedByID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfile_ReferenceData">
-          <End Role="ReferenceData" Type="Self.ReferenceData" Multiplicity="0..1" />
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceData">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="Gender" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1161,14 +1071,6 @@
             <End Role="NoteDetails" EntitySet="NoteDetails" />
             <End Role="SpamReports" EntitySet="SpamReports" />
           </AssociationSet>
-          <AssociationSet Name="FK_NoteDetails_NoteDetails" Association="Self.FK_NoteDetails_NoteDetails">
-            <End Role="NoteDetails" EntitySet="NoteDetails" />
-            <End Role="NoteDetails1" EntitySet="NoteDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NoteDetails_NoteDetails1" Association="Self.FK_NoteDetails_NoteDetails1">
-            <End Role="NoteDetails" EntitySet="NoteDetails" />
-            <End Role="NoteDetails1" EntitySet="NoteDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_NoteDetails_ReferenceData" Association="Self.FK_NoteDetails_ReferenceData">
             <End Role="ReferenceData" EntitySet="ReferenceData" />
             <End Role="NoteDetails" EntitySet="NoteDetails" />
@@ -1176,10 +1078,6 @@
           <AssociationSet Name="FK__NoteRevie__Revie__1BC821DD" Association="Self.FK__NoteRevie__Revie__1BC821DD">
             <End Role="Users" EntitySet="Users" />
             <End Role="NoteReview" EntitySet="NoteReview" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_ReferenceData" Association="Self.FK_UserProfile_ReferenceData">
-            <End Role="ReferenceData" EntitySet="ReferenceData" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
           <AssociationSet Name="FK__SpamRepor__Repor__1332DBDC" Association="Self.FK__SpamRepor__Repor__1332DBDC">
             <End Role="Users" EntitySet="Users" />
@@ -1352,7 +1250,7 @@
               <MappingFragment StoreEntitySet="ReferenceData">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="DataValue" ColumnName="DataValue" />
+                <ScalarProperty Name="Datavalue" ColumnName="Datavalue" />
                 <ScalarProperty Name="RefCategory" ColumnName="RefCategory" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

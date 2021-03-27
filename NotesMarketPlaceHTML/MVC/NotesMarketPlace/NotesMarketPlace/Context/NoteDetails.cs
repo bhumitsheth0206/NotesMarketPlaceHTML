@@ -61,10 +61,8 @@ namespace NotesMarketPlace.Context
         public virtual ICollection<SellerNotesAttachments> SellerNotesAttachments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SpamReports> SpamReports { get; set; }
-        public virtual NoteDetails NoteDetails1 { get; set; }
-        public virtual NoteDetails NoteDetails2 { get; set; }
-        public virtual NoteDetails NoteDetails11 { get; set; }
-        public virtual NoteDetails NoteDetails3 { get; set; }
         public virtual ReferenceData ReferenceData { get; set; }
+
+        
     }
 }

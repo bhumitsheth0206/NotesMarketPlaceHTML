@@ -39,7 +39,13 @@ namespace Notes_MarketPlace.Controllers
                     if(obj.IsEmailVerified)
                     {
                         FormsAuthentication.SetAuthCookie(model.EmailID , model.RememberMe);
-                        return RedirectToAction("Dashboard", "Dashboard");
+                        
+                        if(dobj.UserProfile.Any(x => x.UID == obj.ID))
+                        {
+                            return RedirectToAction("NoteSearch", "NoteSearch");
+                        }
+
+                        return RedirectToAction("UserProfile", "UserProfile");
                     }
                     TempData["ErrorMsg"] = "Email Address is not  yet verified";
                     return RedirectToAction("Login", "Login");
@@ -49,5 +55,13 @@ namespace Notes_MarketPlace.Controllers
             }
             return RedirectToAction("Login", "Login");
         }
+
+        public ActionResult Logout()
+        { 
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Login", "Login");
+        }
+
     }
 }

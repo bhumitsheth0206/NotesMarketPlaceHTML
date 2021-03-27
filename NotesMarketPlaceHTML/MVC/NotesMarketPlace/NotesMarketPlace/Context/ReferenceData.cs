@@ -18,12 +18,11 @@ namespace NotesMarketPlace.Context
         public ReferenceData()
         {
             this.NoteDetails = new HashSet<NoteDetails>();
-            this.UserProfile = new HashSet<UserProfile>();
         }
     
         public int ID { get; set; }
         public string Value { get; set; }
-        public string DataValue { get; set; }
+        public string Datavalue { get; set; }
         public string RefCategory { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
@@ -33,7 +32,5 @@ namespace NotesMarketPlace.Context
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NoteDetails> NoteDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProfile> UserProfile { get; set; }
     }
 }

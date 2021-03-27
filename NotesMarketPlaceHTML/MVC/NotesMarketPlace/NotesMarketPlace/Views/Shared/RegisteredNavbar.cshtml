@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using NotesMarketPlace.Context
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,13 +28,28 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
 
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
+
+    <script>
+        function note_search() {
+            
+            document.getElementById("search_form").submit();
+        }
+    </script>
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light  bg-light fixed-top  general-navbar">
-        <a class="navbar-brand" href="#">
-            <img src="/Content/User/pre-login/top-logo.png" alt="Logo" width="180" />
+    @{
+        NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
+        string emailid = User.Identity.Name;
+    }
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top general-navbar">
+        <a class="navbar-brand" href="@Url.Action("Home","Home")">
+            <img src="~/Content/User/User-Profile/logo.png" alt="Logo" width="180" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,41 +58,78 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="searchpage.html">Search Notes</a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "NoteSearch" ? "active-1" : "")" href="@Url.Action("NoteSearch","NoteSearch")">Search Notes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Dashboard","Dashboard")">Sell Your Notes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("BuyerRequest","BuyerRequest")">Buyer Requests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("FAQ","Home")">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Contactus","Home")">Contact Us</a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active-1" : "")" href="@Url.Action("Dashboard","Dashboard")">Sell Your Notes</a>
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link navbar-user-photo" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="">My Profile</a>
-                            <a class="dropdown-item" href="">My Downloads</a>
-                            <a class="dropdown-item" href="">My Sold Notes</a>
-                            <a class="dropdown-item" href="">My Rejected Notes</a>
-                            <a class="dropdown-item" href="">Change Password</a>
-                            <a class="dropdown-item row-color" href="#"><b>Logout</b></a>
-                        </div>
+                    var user = dobj.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+                    var profile = dobj.UserProfile.Where(x => x.UID == user.ID).FirstOrDefault();
+
+                    if (profile != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "BuyerRequest" ? "active-1" : "")" href="@Url.Action("BuyerRequest","BuyerRequest")">Buyer Requests</a>
+                        </li>
+                    }
+                }
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "FAQ" ? "active-1" : "")" href="@Url.Action("FAQ","Home")">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Contactus" ? "active-1" : "")" href="@Url.Action("Contactus","Home")">Contact Us</a>
+                </li>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var user = dobj.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+                    var profile = dobj.UserProfile.Where(x => x.UID == user.ID).FirstOrDefault();
+
+                    if (profile != null)
+                    {
+                        string path = "";
+
+                        if (profile.ProfilePicture != null)
+                        {
+                            path = profile.ProfilePicture;
+                        }
+                        else
+                        {
+                            path = "../DefaultImg/customer-3.png";
+                        }
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="@path" alt="Logo" class="navbar-user-photo" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("UserProfile","UserProfile",new {ID = profile.ID})">My Profile</a>
+                                <a class="dropdown-item" href="@Url.Action("MyDownloads", "MyDownloads")">My Downloads</a>
+                                <a class="dropdown-item" href="@Url.Action("MySoldNotes", "MySoldNotes")">My Sold Notes</a>
+                                <a class="dropdown-item" href="#">My Rejected Notes</a>
+                                <a class="dropdown-item" href="@Url.Action("ChangePassword","ChangePassword")">Change Password</a>
+                                <a class="dropdown-item" href="@Url.Action("Logout","Login")" onclick="return confirm('Do you want to Logout?')"><b>Logout</b></a>
+                            </div>
+                        </li>
+                    }
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="btn  btn-nav-login smooth-scroll homebtn" role="button" href="@Url.Action("Logout","Login")" onclick="return confirm('Do you want to Logout?')" title="Logout"><b>Logout</b></a>
                     </li>
                 }
 
-
-                <li class="nav-item">
-                    <a class="btn  btn-nav-login smooth-scroll homebtn" role="button" href="" title="Logout"><b>Logout</b></a>
-                </li>
+                else
+                {
+                    <li class="nav-item">
+                        <a class="btn  btn-nav-login smooth-scroll homebtn" role="button" href="@Url.Action("Login","Login")" title="Login"><b>Login</b></a>
+                    </li>
+                }
             </ul>
-
         </div>
     </nav>
 
@@ -115,14 +169,14 @@
         </div>
     </footer>
 
-
-    <!-- Jquery -->
-    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/User/script.js"></script>
+
 </body>
 </html>

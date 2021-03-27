@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using NotesMarketPlace.Models;
 
 namespace Notes_MarketPlace.Controllers
 {
@@ -13,20 +14,9 @@ namespace Notes_MarketPlace.Controllers
     {
         NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
 
+        
         // GET: Home
         public ActionResult Home()
-        {
-            return View();
-        }
-
-        [Route("SearchNotes")]
-        public ActionResult SearchNotes()
-        {
-            return View();
-        }
-
-        [Route("SellNotes")]
-        public ActionResult SellNotes()
         {
             return View();
         }
@@ -41,58 +31,62 @@ namespace Notes_MarketPlace.Controllers
         [HttpGet]
         public ActionResult Contactus()
         {
+            var emailid = User.Identity.Name.ToString();
+            
+            if(User.Identity.IsAuthenticated)
+            {
+                contactus user = dobj.Users.Where(x => x.EmailID == emailid).Select(x =>
+               new contactus
+               {
+                   FullName = x.FirstName + " " + x.LastName,
+                   EmailID = x.EmailID
+               }
+                ).FirstOrDefault();
+
+                return View(user);
+
+            }
+
             return View();
         }
 
+        [Route("Contactus")]
         [HttpPost]
-        public ActionResult AddContact(ContactUs model)
+        public ActionResult Contactus(contactus model)
         {
             if (ModelState.IsValid)
             {
-                ContactUs contact = new ContactUs();
-                contact.FullName = model.FullName;
-                contact.EmailID = model.EmailID;
-                contact.Subject = model.Subject;
-                contact.Comments = model.Comments;
-                contact.CreatedDate = DateTime.Now;
 
-                dobj.ContactUs.Add(contact);
-                dobj.SaveChanges();
-                SendEmailToAdmin(contact);
-                return RedirectToAction("Contactus");
+                var fromEmail = new MailAddress(""); //Email of Company
+                var toEmail = new MailAddress(""); //Email of admin
+                var fromEmailPassword = "******"; // Replace with actual password
+                string subject = model.FullName + " - Query";
+
+                string body = "Hello," +
+                    "<br/><br/>" + model.Comments +
+                    "<br/><br/>Regards,<br/>" + model.FullName;
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                };
+
+                using (var message = new MailMessage(fromEmail, toEmail)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+                    smtp.Send(message);
             }
             return View();
         }
 
-        [NonAction]
-        public void SendEmailToAdmin(ContactUs obj)
-        {
-            var fromEmail = new MailAddress("bhumitsheth02@gmail.com"); //Email of Company
-            var toEmail = new MailAddress("shethbhumit02@gmail.com"); //Email of admin
-            var fromEmailPassword = "// Replace with actual password"; // Replace with actual password
-            string subject = obj.FullName + " - Query";
-
-            string body = "Hello," +
-                "<br/><br/>" + obj.Comments +
-                "<br/><br/>Regards," + obj.FullName;
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
-                smtp.Send(message);
-        }
+        
     }
 }

@@ -153,7 +153,7 @@
         <MappingFragment StoreEntitySet="ReferenceData">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="DataValue" ColumnName="DataValue" />
+          <ScalarProperty Name="Datavalue" ColumnName="Datavalue" />
           <ScalarProperty Name="RefCategory" ColumnName="RefCategory" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

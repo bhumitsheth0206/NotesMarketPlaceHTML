@@ -36,6 +36,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
 
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
+
 </head>
 <body>
     <section id="dashboard-page">
@@ -68,11 +71,19 @@
                                 <p>My Earnings</p>
                             </div>
                             <div class="text-center">
-                                <h3>100</h3>
+                                <h3>
+                                    <a href="@Url.Action("MySoldNotes", "MySoldNotes")">
+                                        @ViewBag.mySoldNotes
+                                    </a>
+                                </h3>
                                 <p>Number of Notes Sold</p>
                             </div>
                             <div class="text-center">
-                                <h3>$10,00,000</h3>
+                                <h3>
+
+                                    $@ViewBag.notePrice
+
+                                </h3>
                                 <p>Money Earned</p>
                             </div>
                         </div>
@@ -84,7 +95,11 @@
                         <div class="row" align="center">
                             <div class="col-md-4">
                                 <div class="dashboard-border">
-                                    <h3>38</h3>
+                                    <h3>
+                                        <a href="@Url.Action("MyDownloads", "MyDownloads")">
+                                            @ViewBag.myDownloads
+                                        </a>
+                                    </h3>
                                     <p>My Downloads</p>
                                 </div>
                             </div>
@@ -98,8 +113,12 @@
 
                             <div class="col-md-4">
                                 <div class="dashboard-border">
-                                    <h3>102</h3>
-                                    <p>Buyes Requests</p>
+                                    <h3>
+                                        <a href="@Url.Action("BuyerRequest","BuyerRequest")">
+                                            @ViewBag.myBuyerRequest
+                                        </a>
+                                    </h3>
+                                    <p>Buyer Requests</p>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +164,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(Model.Count()==0)
+                                    @if (Model.Count() == 0)
                                     {
                                         <tr>
                                             <td colspan="5" class="text-center">No Records Found</td>
@@ -164,9 +183,9 @@
 
                                                     <div id="dash-img">
                                                         <a href="@Url.Action("AddNotes","AddNotes",new { ID = item.ID })"> <img src="~/Content/User/Dashboard/edit.png" alt="pencil" /></a>
-                                                        
+
                                                         <a href="@Url.Action("DeleteRecord","Dashboard",new {id = item.ID })" onclick="return confirm('Do you want to delete the record?')"> <i class="fa fa-trash" id="ellipsis"></i></a>
-                                                       
+
                                                     </div>
                                                 </td>
                                             }
@@ -197,7 +216,7 @@
                 <div class="row">
                     <div class="col-md-12 justify-content-center">
                         <div class="pagination">
-                           @Html.PagedListPager(Model,page => Url.Action("Dashboard", new { page, search = Request.QueryString["search"]}))
+                            @Html.PagedListPager(Model, page => Url.Action("Dashboard", new { page, search = Request.QueryString["search"] }))
                         </div>
                     </div>
                 </div>
@@ -323,15 +342,16 @@
         </div>
 
     </section>
-    <!-- Jquery -->
-    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Validation -->
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/User/script.js"></script>

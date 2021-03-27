@@ -31,6 +31,7 @@
     
     .card-title {
         font-size: 12px;
+        height: 40px;
     }
     
     .flex-container  div {
@@ -43,6 +44,11 @@
     
     #dimg {
         margin-left: 20px;
+    }
+
+    .card-text {
+        font-size: 10px;
+        height: 45px;
     }
 }
 

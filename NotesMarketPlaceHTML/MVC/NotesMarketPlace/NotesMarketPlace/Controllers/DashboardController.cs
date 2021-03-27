@@ -21,17 +21,24 @@ namespace NotesMarketPlace.Controllers
         [HttpGet]
         public ActionResult Dashboard(string search, int? page,string sortBy)
         {
+            var emailid = User.Identity.Name.ToString();
+            Users obj = dobj.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+
+            ViewBag.myDownloads = dobj.Downloads.Where(x => x.IsSellerHasAllowedDownload == true && x.Users1.EmailID == emailid).Count();
+            ViewBag.myBuyerRequest = dobj.Downloads.Where(x => x.IsSellerHasAllowedDownload == false && x.Users.EmailID == emailid).Count();
+            ViewBag.mySoldNotes = dobj.Downloads.Where(x => x.IsAttachmentDownloaded == true && x.Users.EmailID == emailid).Count();
+            ViewBag.notePrice = dobj.Downloads.Where(x => x.IsSellerHasAllowedDownload == true && x.Users.EmailID == emailid).Sum(x => x.PurchasedPrice);
+
             ViewBag.SortAddedDate = string.IsNullOrEmpty(sortBy) ? "Date Desc" : "";
             ViewBag.SortNoteTitle = sortBy == "Title" ? "Title Desc" : "Title";
             ViewBag.SortCategory = sortBy == "Category" ? "Category Desc" : "Category";
 
-            var emailid = User.Identity.Name.ToString();
-            Users obj = dobj.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+            
             var filterTitle = dobj.NoteDetails.Where(x => x.NoteTitle.Contains(search) || search==null);
             var filterStatus = dobj.NoteDetails.Include(x => x.ReferenceData).Where(x => x.ReferenceData.Value.Contains(search));
             var filterCategory = dobj.NoteDetails.Include(x => x.AddCategory).Where(x => x.AddCategory.CategoryName.Contains(search));
             var filtered = filterTitle.Union(filterStatus).Union(filterCategory);
-            var table__entry = filtered.Where(x => x.UID == obj.ID && (x.Status == 4 || x.Status == 5 || x.Status == 6)).Include(x => x.ReferenceData).ToList().AsQueryable();
+            var table__entry = filtered.Where(x => x.UID == obj.ID && (x.Status == 1 || x.Status == 2 || x.Status == 3)).Include(x => x.ReferenceData).ToList().AsQueryable();
 
             switch (sortBy)
             {

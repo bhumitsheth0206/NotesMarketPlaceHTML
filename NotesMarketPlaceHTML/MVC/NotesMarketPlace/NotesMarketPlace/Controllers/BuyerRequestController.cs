@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
+using System.Net.Mail;
+using System.Net;
 
 namespace NotesMarketPlace.Controllers
 {
@@ -25,13 +27,14 @@ namespace NotesMarketPlace.Controllers
 
             var emailid = User.Identity.Name.ToString();
             Users obj = dobj.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+            NoteDetails noteID = dobj.NoteDetails.Where(x => x.UID == obj.ID).FirstOrDefault();
 
-            var filterTitle = dobj.NoteDetails.Where(x => x.NoteTitle.Contains(search) || search == null);
-            var filterCategory = dobj.NoteDetails.Include(x => x.AddCategory).Where(x => x.AddCategory.CategoryName.Contains(search));
+            var filterTitle = dobj.Downloads.Where(x => x.NoteTitle.Contains(search) || search == null);
+            var filterCategory = dobj.Downloads.Where(x => x.Category.Contains(search));
 
             var filtereddata = filterTitle.Union(filterCategory);
 
-            var table__entry = filtereddata.Where(x => x.UID == obj.ID ).ToList().AsQueryable();
+            var table__entry = filtereddata.Where(x => x.Seller == noteID.UID ).ToList().AsQueryable();
 
             switch (sortBy)
             {
@@ -45,18 +48,65 @@ namespace NotesMarketPlace.Controllers
                     table__entry = table__entry.OrderByDescending(x => x.NoteTitle);
                     break;
                 case "Category":
-                    table__entry = table__entry.OrderBy(x => x.AddCategory.CategoryName);
+                    table__entry = table__entry.OrderBy(x => x.Category);
                     break;
                 case "Category Desc":
-                    table__entry = table__entry.OrderByDescending(x => x.AddCategory.CategoryName);
+                    table__entry = table__entry.OrderByDescending(x => x.Category);
                     break;
                 default:
                     table__entry = table__entry.OrderBy(x => x.CreatedDate);
                     break;
             }
-
-
             return View(table__entry.ToPagedList(page ?? 1, 10));
         }
+
+        [HttpGet]
+        public ActionResult Allow_Download(int? ID)
+        {
+            Downloads downloads = dobj.Downloads.Where(x => x.ID == ID).FirstOrDefault();
+            downloads.IsSellerHasAllowedDownload = true;
+
+            var NoteID = downloads.NoteID;
+
+            NoteDetails ndetail = dobj.NoteDetails.Where(x => x.ID == NoteID).FirstOrDefault();
+            
+
+            SellerNotesAttachments sellernotes = dobj.SellerNotesAttachments.Where(x => x.NoteID == NoteID).FirstOrDefault();
+            downloads.AttachmentPath = sellernotes.FilePath;
+            dobj.SaveChanges();
+
+            var fromEmail = new MailAddress(""); //Email of Company
+            var toEmail = new MailAddress(downloads.Users1.EmailID); //Buyer EmailAddress
+            var fromEmailPassword = "********"; // Replace with actual password
+            string subject = downloads.Users.FirstName + " - Allows you to download a note";
+
+            string body = "Hello," + downloads.Users1.FirstName +
+                "<br/><br/>We would like to inform you that,"+ downloads.Users.FirstName + " Allows you to download a note." +
+                " Please login and see My Download tabs to download particular note." +
+                "<br/><br/>Regards," +
+                "<br/>Notes Marketplace";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            smtp.Send(message);
+
+            return RedirectToAction("Dashboard", "Dashboard");
+        }
+
+
     }
 }

@@ -35,6 +35,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
 
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
+
 </head>
 
 <body>
@@ -77,7 +80,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group" id="form-group-1">
                                             <label for="category" class="label-text">Category*  @Html.ValidationMessageFor(x => x.CategoryID, "", new { @class = "Error" })</label>
-                                            @Html.DropDownListFor(x => x.CategoryID, new SelectList(Model.Category,"ID", "CategoryName"), "Select your category", new { @class = "form-control" })
+                                            @Html.DropDownListFor(x => x.CategoryID, new SelectList(Model.Category, "ID", "CategoryName"), "Select your category", new { @class = "form-control" })
                                         </div>
                                     </div>
 
@@ -285,7 +288,7 @@
                                                 <button type="submit" class="btn btn-general btn-home-1">SAVE</button>
                                             </div>
 
-                                           
+                                            
                                             <div class="col-md-3">
                                                 <button type="submit" class="btn btn-general btn-home-1">PUBLISH</button>
                                             </div>
@@ -305,15 +308,16 @@
         }
 
     </section>
-    <!-- Jquery -->
-    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Validation -->
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/User/script.js"></script>

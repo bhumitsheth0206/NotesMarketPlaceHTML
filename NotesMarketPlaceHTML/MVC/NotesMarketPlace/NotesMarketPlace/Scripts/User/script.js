@@ -9,31 +9,6 @@ $(".toggle-password").click(function () {
 	}
 });
 
-/* Dropdown Menu for MyDownloads Page */
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function mydownloadDropdown(id) {
-  document.getElementById("myDropdown_" + id).classList.toggle("show");
-}
-
-/* Dropdown Menu for MySoldNotes Page */
-function mysoldnotesDropdown(id) {
-  document.getElementById("myDropdown_" + id).classList.toggle("show");
-}
-
-/* Dropdown Menu for MyRejectedNotes Page */
-function myrejectednotesDropdown(id) {
-  document.getElementById("myDropdown_" + id).classList.toggle("show");
-}
-
-
-/* Dropdown Menu for Buyer Requests Page */
-function mybuyerrequestDropdown(id) {
-  document.getElementById("myDropdown_" + id).classList.toggle("show");
-}
-
-
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -74,12 +49,6 @@ $("button.accordion").click(
         $(".accordion.active").next().css('border-bottom','1px solid #f3f3f3'); 
    }
 );
-
-
-/* Date Picker */
-$(function() {
-   $(".date-picker").datepicker({});
-});
 
 /* Add Notes Page */
 //Validatons for File Upload

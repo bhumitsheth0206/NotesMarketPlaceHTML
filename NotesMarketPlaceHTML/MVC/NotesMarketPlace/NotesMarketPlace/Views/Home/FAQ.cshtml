@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "FAQ";
-    Layout = "~/Views/Shared/NavHeader.cshtml";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
 }
 
 <!DOCTYPE html>
@@ -31,6 +31,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
 
     <style>
         .active:after {
@@ -144,11 +147,15 @@
 
     </section>
 
-    <!-- Jquery -->
-    <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/User/script.js"></script>

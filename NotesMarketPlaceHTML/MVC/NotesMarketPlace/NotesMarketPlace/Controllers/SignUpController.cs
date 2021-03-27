@@ -59,8 +59,8 @@ namespace Notes_MarketPlace.Controllers
 
             var fromEmail = new MailAddress("bhumitsheth02@gmail.com", "Notes-MarketPlace");
             var toEmail = new MailAddress(EmailID);
-            var fromEmailPassword = "**********"; // Replace with actual password
-            string subject = "Notes MarketPlace- Email Verification";
+            var fromEmailPassword = "*******"; // Replace with actual password
+            string subject = "Notes MarketPlace - Email Verification";
 
             string body = "<br/><br/>We are excited to tell you that your Notes-MarketPlace account is" +
                 " successfully created. Please click on the below link to verify your account" +

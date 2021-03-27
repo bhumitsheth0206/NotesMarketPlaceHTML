@@ -18,10 +18,10 @@ namespace NotesMarketPlace.Context
         public int UID { get; set; }
         public string SecondaryEmail { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public Nullable<int> Gender { get; set; }
+        public string Gender { get; set; }
         public string PhoneNumber_CountryCode { get; set; }
         public string PhoneNumber { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
         public string AddressLine_1 { get; set; }
         public string AddressLine_2 { get; set; }
         public string City { get; set; }
@@ -35,7 +35,6 @@ namespace NotesMarketPlace.Context
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
     
-        public virtual ReferenceData ReferenceData { get; set; }
         public virtual Users Users { get; set; }
     }
 }

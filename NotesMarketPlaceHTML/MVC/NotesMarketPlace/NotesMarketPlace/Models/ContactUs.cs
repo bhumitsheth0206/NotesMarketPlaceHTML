@@ -6,16 +6,13 @@ using System.Web;
 
 namespace NotesMarketPlace.Models
 {
-    public class ContactUs
+    public class contactus
     {
         public int ID { get; set; }
 
         [Required(ErrorMessage = "FullName is required")]
-        [RegularExpression(@"^([A-Za-z]+)$", ErrorMessage = "FullName is invalid")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "EmailAddress is required")]
-        [EmailAddress(ErrorMessage = "EmailAddress is invalid")]
         public string EmailID { get; set; }
 
         [Required(ErrorMessage = "Subject is required")]
@@ -23,6 +20,10 @@ namespace NotesMarketPlace.Models
 
         [Required(ErrorMessage = "Comments are required")]
         public string Comments { get; set; }
+
+        public string FirstName { get; set; }
         
+        public string LastName { get; set; }
+
     }
 }

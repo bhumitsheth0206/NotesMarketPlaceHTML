@@ -1,14 +1,14 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 
-@model IPagedList<NotesMarketPlace.Context.NoteDetails>
+@model IPagedList<NotesMarketPlace.Context.Downloads>
 
 @{
     ViewBag.Title = "BuyerRequest";
     Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
 }
 
-@{  int cnt = 0;}
+@{  int cnt = 0; }
 <head>
 
     <!-- important meta tags -->
@@ -34,9 +34,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/User/style.css" />
 
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
+
 </head>
 <body>
-    <section id="buyerrequests-page" class="heading-space">
+    <section id="buyerrequests-page" class="heading-space main-wrapper">
 
         <div class="content-box-lg">
             <div class="container">
@@ -81,34 +84,60 @@
                                     @if (Model.Count() == 0)
                                     {
                                         <tr>
-                                            <td colspan="10" class="text-center">No Records Found</td>
+                                            <td colspan="9" class="text-center">No Records Found</td>
                                         </tr>
                                     }
 
+
                                     @foreach (var item in Model)
                                     {
-                                        cnt = cnt + 1;
-                                        <tr>
-                                            <td scope="row">@cnt</td>
-                                            <td>@item.NoteTitle</td>
-                                            <td>@item.AddCategory.CategoryName</td>
-                                            <td>testing@gmail.com</td>
-                                            <td>9427494840</td>
-                                            <td>@item.IsPaid</td>
-                                            <td>@item.SellPrice</td>
-                                            <td>@item.CreatedDate</td>
-                                            <td>
-                                                <div id="dash-img">
-                                                    <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+
+
+                                        if (item.IsSellerHasAllowedDownload == false)
+                                        {
+                                            cnt = cnt + 1;
+
+                                            <tr>
+                                                <td scope="row">@cnt</td>
+                                                <td class="table_row_color">
+                                                    <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.NoteID})">
+                                                        @item.NoteTitle
+                                                    </a>
+                                                </td>
+                                                <td>@item.Category</td>
+                                                <td>@item.Users1.EmailID</td>
+                                                <td>@item.Users1.UserProfile.Select(x => x.PhoneNumber).FirstOrDefault()</td>
+                                                <td>
+                                                    @if (item.IsPaid == true)
+                                                    {
+                                                        <p>Paid</p>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <p>Free</p>
+                                                    }
+                                                </td>
+                                                <td>$@item.NoteDetails.SellPrice</td>
+                                                <td>@item.CreatedDate</td>
+                                                <td>
+                                                    <div id="dash-img">
+                                                        <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.NoteID})">
+                                                            <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="dropdown">
+                                                    <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
                                                     <div class="dropdown">
-                                                        <i onclick="mybuyerrequestDropdown(1)" class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
-                                                        <div id="myDropdown_1" class="dropdown-content">
-                                                            <a href="#">Allow Download</a>
+                                                        <div class="dropdown-content">
+                                                            <a href="@Url.Action("Allow_Download","BuyerRequest", new { ID = item.ID})">Allow Download</a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        }
+
                                     }
 
                                 </tbody>
@@ -134,20 +163,19 @@
             </div>
         </div>
 
+        <!-- Jquery  -->
+        <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
 
-        <!-- Jquery -->
-        <script src="~/Scripts/User/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
 
         <!-- Validation -->
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
-
         <!-- Custom JS -->
         <script src="~/Scripts/User/script.js"></script>
-
+       
     </section>
 </body>
 
