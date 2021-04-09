@@ -43,21 +43,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ContactUs">
-      <EntityTypeMapping TypeName="NotesMarketPlaceModel.ContactUs">
-        <MappingFragment StoreEntitySet="ContactUs">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Downloads">
       <EntityTypeMapping TypeName="NotesMarketPlaceModel.Downloads">
         <MappingFragment StoreEntitySet="Downloads">
@@ -121,12 +106,13 @@
           <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
           <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
           <ScalarProperty Name="NotesPreview" ColumnName="NotesPreview" />
-          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="ActionedBy" ColumnName="ActionedBy" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -241,6 +227,8 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumber_CountryCode" ColumnName="PhoneNumber_CountryCode" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />

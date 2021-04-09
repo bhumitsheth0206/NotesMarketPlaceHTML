@@ -43,7 +43,9 @@
 </head>
 
 <body>
-
+    @{ 
+        NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
+    }
     <section id="search-page" class="heading-space-img main-wrapper">
 
         <div id="search-page-header">
@@ -110,13 +112,13 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group" id="form-group-1">
-                                            <select class="form-control">
-                                                <option value="">Select rating</option>
-                                                <option value="type-1">+1</option>
-                                                <option value="type-2">+2</option>
-                                                <option>+3</option>
-                                                <option>+4</option>
-                                                <option>5</option>
+                                            <select class="form-control" name="Ratings" onchange = "note_search()">
+                                                <option value="" >Select rating</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                         </div>
                                     </div>
@@ -154,85 +156,89 @@
 
                     @foreach (var item in Model.Note)
                     {
-
-
-                        string path = "";
-                        if (item.DisplayPicture != null)
+                        if (item.Status == 4)
                         {
-                            path = item.DisplayPicture; 
-                        }
+                            string path = "";
+                            if (item.DisplayPicture != null)
+                            {
+                                path = item.DisplayPicture;
+                            }
 
-                        else
-                        {
-                            path = "../DefaultImg/3.jpg";
-                        }
+                            else
+                            {
+                                ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.SingleOrDefault();
+                                path = manage.DefaultNoteDisplayImage;
+                            }
 
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="@path" alt="Book Image" width="100" class="card-img" />
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.ID})">
-                                            @item.NoteTitle
-                                        </a>
-                                    </h4>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="@path" alt="Book Image" width="100" class="card-img" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.ID})">
+                                                @item.NoteTitle
+                                            </a>
+                                        </h4>
 
 
 
-                                    <div class="card-text">
-                                        <ul id="book-list">
-                                            @{
-                                                List<NoteReview> list = item.NoteReview.Where(x => x.NoteID == item.ID).ToList();
-                                                int noOfReviews = list.Count();
-                                                var sumOfStar = list.Sum(x => x.Rate);
+                                        <div class="card-text">
+                                            <ul id="book-list">
+                                                @{
+                                                    List<NoteReview> list = item.NoteReview.Where(x => x.NoteID == item.ID).ToList();
+                                                    int noOfReviews = list.Count();
+                                                    var sumOfStar = list.Sum(x => x.Rate);
 
-                                                List<SpamReports> list_spamreport = item.SpamReports.Where(x => x.NoteID == item.ID).ToList();
-                                                var noOfSpam = list_spamreport.Count();
-                                            }
-
-                                            <li>
-                                                @if (item.InstitutionName != null)
-                                                {
-                                                    <i class="fa fa-university"></i><span>@item.InstitutionName</span>
+                                                    List<SpamReports> list_spamreport = item.SpamReports.Where(x => x.NoteID == item.ID).ToList();
+                                                    var noOfSpam = list_spamreport.Count();
                                                 }
 
-                                            </li>
-                                            <li>
-                                                @if (item.NumberOfPages != null)
-                                                {
-                                                    <i class="fa fa-book"></i><span>@item.NumberOfPages Pages</span>
-                                                }
-                                            </li>
-                                            <li>
-                                                
-                                                <i class="fa fa-calendar"></i><span>@item.CreatedDate.Value.ToString("ddd, MMM dd yyyy")</span>
-                                            </li>
-                                            <li>
-                                                @if (noOfSpam != 0)
-                                                {
-                                                    <i class="fa fa-flag-o"></i><span style="color: red">@noOfSpam Users marked this as an inappropriate</span>
-                                                }
-                                            </li>
-
-                                            @if (noOfReviews != 0)
-                                            {
-                                                var avg = sumOfStar / noOfReviews;
-                                                <li class="rating">
-                                                    @for (int i = 1; i <= 5; i++)
+                                                <li>
+                                                    @if (item.InstitutionName != null)
                                                     {
-                                                        string addClass = (i <= avg ? "fa fa-star" : "fa fa-star-o");
-
-                                                        <i class="@addClass"></i>
+                                                        <i class="fa fa-university"></i><span>@item.InstitutionName</span>
                                                     }
-                                                    <span>@noOfReviews Reviews</span>
-                                                </li>
-                                             }
 
-                                        </ul>
+                                                </li>
+                                                <li>
+                                                    @if (item.NumberOfPages != null)
+                                                    {
+                                                        <i class="fa fa-book"></i><span>@item.NumberOfPages Pages</span>
+                                                    }
+                                                </li>
+                                                <li>
+                                                    @if (item.PublishedDate != null)
+                                                    {
+                                                        <i class="fa fa-calendar"></i><span>@item.PublishedDate.Value.ToString("ddd, MMM dd yyyy")</span>
+                                                    }
+                                                </li>
+                                                <li>
+                                                    @if (noOfSpam != 0)
+                                                    {
+                                                        <i class="fa fa-flag-o"></i><span style="color: red">@noOfSpam Users marked this as an inappropriate</span>
+                                                    }
+                                                </li>
+
+                                                @if (noOfReviews != 0)
+                                                {
+                                                    var avg = sumOfStar / noOfReviews;
+                                                    <li class="rating">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            string addClass = (i <= avg ? "fa fa-star" : "fa fa-star-o");
+
+                                                            <i class="@addClass"></i>
+                                                        }
+                                                        <span>@noOfReviews Reviews</span>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
 
                 </div>

@@ -1,0 +1,133 @@
+﻿@model NotesMarketPlace.Areas.Admin.Data.addadmin
+
+@{
+    ViewBag.Title = "AddAdministrator";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+
+    <section id="addadmin-page" class="main-wrapper">
+
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                            <h3>Add Administrator</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-7">
+                        <div id="addadmin-form">
+                            @using (Html.BeginForm("AddAdministrator", "AddAdministrator", FormMethod.Post))
+                            {
+                                <div class="row">
+                                    @if (Model != null)
+                                    {
+                                        @Html.HiddenFor(x => x.ID)
+                                    }
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addadmin-fname">
+                                            <label for="ad-addadm-fname" class="label-text">First Name* @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control label-text", @placeholder = "Enter your first name" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addadmin-lname">
+                                            <label for="ad-addadm-lname" class="label-text">Last Name* @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control label-text", @placeholder = "Enter your last name" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addadmin-mail">
+                                            <label for="ad-addadm-mail" class="label-text">Email* @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control label-text", @placeholder = "Enter your email address" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="phone-number" class="label-text" id="ph-n">Phone Number</label>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.DropDownListFor(x => x.PhoneNumber_CountryCode, new SelectList(Model.Country, "CountryCode", "CountryCode"), new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group" id="phn-no">
+                                                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control label-text", @placeholder = "Enter your phone number" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <button class="btn  btn-home-1" type="submit">SUBMIT</button>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+
+</html>
+

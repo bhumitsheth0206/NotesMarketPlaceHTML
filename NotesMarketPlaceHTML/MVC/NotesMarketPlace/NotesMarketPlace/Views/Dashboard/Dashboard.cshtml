@@ -1,11 +1,16 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 
-@model IPagedList<NotesMarketPlace.Context.NoteDetails>
+@{
+    IPagedList<NotesMarketPlace.Models.dashboard> Model = ViewBag.table_entry;
+    IPagedList<NotesMarketPlace.Models.dashboard> Model1 = ViewBag.published_entry;
+}
+
 
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
+
 }
 
 <!DOCTYPE html>
@@ -106,7 +111,11 @@
 
                             <div class="col-md-4">
                                 <div class="dashboard-border">
-                                    <h3>12</h3>
+                                    <h3>
+                                        <a href="@Url.Action("MyRejectedNotes","MyRejectedNotes")">
+                                            @ViewBag.myRejected
+                                        </a>
+                                    </h3>
                                     <p>My Rejected Notes</p>
                                 </div>
                             </div>
@@ -173,18 +182,18 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td scope="row">@item.CreatedDate.Value.ToShortDateString()</td>
-                                            <td>@item.NoteTitle</td>
+                                            <td scope="row">@item.NoteDetails.CreatedDate.Value.ToShortDateString()</td>
+                                            <td>@item.NoteDetails.NoteTitle</td>
                                             <td>@item.AddCategory.CategoryName</td>
                                             <td>@item.ReferenceData.Value</td>
-                                            @if (@item.ReferenceData.Value == "Draft")
+                                            @if (item.ReferenceData.Value == "Draft")
                                             {
                                                 <td>
 
                                                     <div id="dash-img">
-                                                        <a href="@Url.Action("AddNotes","AddNotes",new { ID = item.ID })"> <img src="~/Content/User/Dashboard/edit.png" alt="pencil" /></a>
+                                                        <a href="@Url.Action("AddNotes","AddNotes",new { ID = item.NoteDetails.ID })"> <img src="~/Content/User/Dashboard/edit.png" alt="pencil" /></a>
 
-                                                        <a href="@Url.Action("DeleteRecord","Dashboard",new {id = item.ID })" onclick="return confirm('Do you want to delete the record?')"> <i class="fa fa-trash" id="ellipsis"></i></a>
+                                                        <a href="@Url.Action("DeleteRecord","Dashboard",new {id = item.NoteDetails.ID })" onclick="return confirm('Do you want to delete the record?')"> <i class="fa fa-trash" id="ellipsis"></i></a>
 
                                                     </div>
                                                 </td>
@@ -192,9 +201,11 @@
                                             else
                                             {
                                                 <td>
-                                                    <div id="dash-img">
-                                                        <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                                    </div>
+                                                    <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.NoteDetails.ID})">
+                                                        <div id="dash-img">
+                                                            <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                                        </div>
+                                                    </a>
                                                 </td>
                                             }
                                         </tr>
@@ -229,18 +240,21 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                        <div id="dash-heading-left">
-                            <h4>Published Notes</h4>
-                        </div>
-                        <div id="dash-heading-right">
-                            <div class="form-group has-search" id="dash-left">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="search" class="form-control search-field" placeholder="Search">
+                        @using (Html.BeginForm("Dashboard", "Dashboard", FormMethod.Get))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>Published Notes</h4>
                             </div>
-                            <div id="dash-right">
-                                <a class="btn  btn-home-1 smooth-scroll" role="button" href="#" title="Search">SEARCH</a>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" name="search" placeholder="Search">
+                                </div>
+                                <div id="dash-right">
+                                    <button type="submit" class="btn  btn-home-1 smooth-scroll mb-2">SEARCH</button>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -258,66 +272,41 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td scope="row">09-10-2020</td>
-                                        <td>Data Science</td>
-                                        <td>Science</td>
-                                        <td>Paid</td>
-                                        <td>$575</td>
-                                        <td>
-                                            <div id="dash-img">
-                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">10-10-2020</td>
-                                        <td>Accounts</td>
-                                        <td>Commerce</td>
-                                        <td>Free</td>
-                                        <td>$0</td>
-                                        <td>
-                                            <div id="dash-img">
-                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">11-10-2020</td>
-                                        <td>Social Studies</td>
-                                        <td>Social</td>
-                                        <td>Free</td>
-                                        <td>$0</td>
-                                        <td>
-                                            <div id="dash-img">
-                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">12-10-2020</td>
-                                        <td>AI</td>
-                                        <td>IT</td>
-                                        <td>Paid</td>
-                                        <td>$3542</td>
-                                        <td>
-                                            <div id="dash-img">
-                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">13-10-2020</td>
-                                        <td>Lorem ipsum dolor sit amet</td>
-                                        <td>Lorem</td>
-                                        <td>Free</td>
-                                        <td>$0</td>
-                                        <td>
-                                            <div id="dash-img">
-                                                <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @if (Model1.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="6" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model1)
+                                    {
+                                        <tr>
+                                            <td scope="row">@item.NoteDetails.PublishedDate.Value.ToShortDateString()</td>
+                                            <td>@item.NoteDetails.NoteTitle</td>
+                                            <td>@item.AddCategory.CategoryName</td>
+                                            <td>
+                                                @if (item.NoteDetails.IsPaid == true)
+                                                {
+                                                    <p>Paid</p>
+                                                }
+
+                                                else
+                                                {
+                                                    <p>Free</p>
+                                                }
+                                            </td>
+                                            <td>$@item.NoteDetails.SellPrice</td>
+                                            <td>
+                                                <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.NoteDetails.ID})">
+                                                    <div id="dash-img">
+                                                        <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -334,7 +323,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-12 align-center">
                         <div class="pagination">
-                            @Html.PagedListPager(Model, page => Url.Action("Dashboard", new { page }))
+                            @Html.PagedListPager(Model1, page => Url.Action("Dashboard", new { page, search = Request.QueryString["search"] }))
                         </div>
                     </div>
                 </div>

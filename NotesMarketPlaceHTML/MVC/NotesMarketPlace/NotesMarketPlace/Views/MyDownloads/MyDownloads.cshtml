@@ -116,19 +116,26 @@
                                                 }
                                             </td>
                                             <td>$@item.NoteDetails.SellPrice</td>
-                                            <td>@item.CreatedDate</td>
+                                            @if (item.AttachmentDownloadedDate != null)
+                                            {
+                                                <td>@item.AttachmentDownloadedDate</td>
+                                            }
+                                            else
+                                            {
+                                                <td>NA</td>
+                                            }
                                             <td>
                                                 <div id="dash-img">
                                                     <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.NoteID})">
                                                         <img src="~/Content/User/Dashboard/eye.png" alt="eye" />
                                                     </a>
-                                                 </div>
+                                                </div>
                                             </td>
                                             <td class="dropdown">
-                                                
-                                                    <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
-                                                
-                                                
+
+                                                <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+
+
                                                 <div class="dropdown">
                                                     <div class="dropdown-content">
                                                         <a href="@Url.Action("DownloadNotes","MyDownloads",new { id = item.ID})">Download Note</a>

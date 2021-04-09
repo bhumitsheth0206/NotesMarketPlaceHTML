@@ -1,0 +1,177 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<NotesMarketPlace.Context.AddCountry>
+
+@{
+    ViewBag.Title = "ManageCountry";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+@{ int cnt = 0; }
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+
+    <section id="managecountry-page" class="main-wrapper">
+
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading mb-2">
+                            <h3>Manage Country</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("ManageCountry", "ManageCountry", FormMethod.Get))
+                        {
+                            <div id="dash-heading-left">
+                                <a class="btn  btn-home-1 smooth-scroll mb-3" role="button" href="@Url.Action("AddCountry","AddCountry")" title="Add Country">ADD COUNTRY</a>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" placeholder="Search" name="search">
+                                </div>
+                                <div id="dash-right">
+                                    <button class="btn  btn-home-1 smooth-scroll mb-2" type="submit">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table table-general">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("COUNTRY NAME", "ManageCountry", new { sortBy = ViewBag.SortCountryName, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("COUNTRY CODE", "ManageCountry", new { sortBy = ViewBag.SortCountryCode, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("DATE ADDED", "ManageCountry", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("ADDED BY", "ManageCountry", new { sortBy = ViewBag.SortAddedBy, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("ACTIVE", "ManageCountry", new { sortBy = ViewBag.SortActive, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        cnt = cnt + 1;
+                                        <tr>
+                                            <td scope="row">@cnt</td>
+                                            <td>@item.CountryName</td>
+                                            <td>@item.CountryCode</td>
+                                            <td>@item.CreatedDate.Value.ToString("dd-MM-yyyy, hh:mm")</td>
+                                            <td>@item.Users.FirstName @item.Users.LastName</td>
+                                            <td>
+                                                @if (item.IsActive == true)
+                                                {
+                                                    <p>Yes</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>No</p>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div id="dash-img">
+                                                    <a href="@Url.Action("AddCountry","AddCountry",new { ID = item.ID})">
+                                                        <img src="~/Content/Admin/assets/edit.png" alt="pencil" />
+                                                    </a>
+
+
+                                                    @if (item.IsActive == true)
+                                                    {
+                                                        <a href="@Url.Action("DeleteRecord","ManageCountry", new { ID = item.ID})" onclick="return confirm('Do you want to delete the record?')">
+                                                            <i class="fa fa-trash" id="ellipsis"></i>
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 justify-content-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("ManageCountry", new { page, search = Request.QueryString["search"] }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+

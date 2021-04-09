@@ -41,12 +41,13 @@ namespace NotesMarketPlace.Context
         public bool IsPaid { get; set; }
         public decimal SellPrice { get; set; }
         public string NotesPreview { get; set; }
-        public string Action { get; set; }
+        public Nullable<int> ActionedBy { get; set; }
         public string Remark { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> PublishedDate { get; set; }
         public bool IsActive { get; set; }
     
         public virtual AddCategory AddCategory { get; set; }
@@ -62,7 +63,6 @@ namespace NotesMarketPlace.Context
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SpamReports> SpamReports { get; set; }
         public virtual ReferenceData ReferenceData { get; set; }
-
-        
+        public virtual Users Users1 { get; set; }
     }
 }

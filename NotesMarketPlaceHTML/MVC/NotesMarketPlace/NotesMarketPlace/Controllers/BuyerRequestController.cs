@@ -12,7 +12,7 @@ using System.Net;
 
 namespace NotesMarketPlace.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "member")]
     public class BuyerRequestController : Controller
     {
         NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
@@ -34,7 +34,7 @@ namespace NotesMarketPlace.Controllers
 
             var filtereddata = filterTitle.Union(filterCategory);
 
-            var table__entry = filtereddata.Where(x => x.Seller == noteID.UID ).ToList().AsQueryable();
+            var table__entry = filtereddata.Where(x => x.Seller == noteID.UID && x.IsSellerHasAllowedDownload == false).ToList().AsQueryable();
 
             switch (sortBy)
             {
@@ -75,9 +75,11 @@ namespace NotesMarketPlace.Controllers
             downloads.AttachmentPath = sellernotes.FilePath;
             dobj.SaveChanges();
 
-            var fromEmail = new MailAddress(""); //Email of Company
+            ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+            var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace"); //Email of Company
             var toEmail = new MailAddress(downloads.Users1.EmailID); //Buyer EmailAddress
-            var fromEmailPassword = "********"; // Replace with actual password
+            var fromEmailPassword = "*********"; // Replace with actual password
             string subject = downloads.Users.FirstName + " - Allows you to download a note";
 
             string body = "Hello," + downloads.Users1.FirstName +

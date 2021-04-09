@@ -285,13 +285,15 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <button type="submit" class="btn btn-general btn-home-1">SAVE</button>
+                                                <button type="submit" class="btn btn-general btn-home-1" value="1" name="addnote_btn">SAVE</button>
                                             </div>
 
-                                            
-                                            <div class="col-md-3">
-                                                <button type="submit" class="btn btn-general btn-home-1">PUBLISH</button>
-                                            </div>
+                                            @if (Model.Status == 0 || Model.Status == 1)
+                                            {
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-general btn-home-1" value="2" name="addnote_btn" onclick="return confirm('Publishing this note will send note to administrator for review, once administrator review and approve then this note will be published to portal. Press yes to continue.')">PUBLISH</button>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
 

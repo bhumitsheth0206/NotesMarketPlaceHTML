@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace NotesMarketPlace.Controllers
 {
+    [Authorize(Roles = "member")]
     public class MySoldNotesController : Controller
     {
         NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();

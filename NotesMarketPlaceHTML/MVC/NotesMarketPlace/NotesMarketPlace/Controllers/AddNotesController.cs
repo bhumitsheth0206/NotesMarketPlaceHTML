@@ -7,11 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Data.Entity;
+using System.Net.Mail;
+using System.Net;
 
 namespace Notes_MarketPlace.Controllers
 {
-    
-    [Authorize]
+
+    [Authorize(Roles = "member")]
     public class AddNotesController : Controller
     {
         NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
@@ -22,10 +24,10 @@ namespace Notes_MarketPlace.Controllers
         public ActionResult AddNotes(int? ID)
         {
             // Assigning values to dropdown from database
-           
-            var country = dobj.AddCountry.ToList();
-            var category = dobj.AddCategory.ToList();
-            var type = dobj.AddType.ToList();
+
+            var country = dobj.AddCountry.Where(x => x.IsActive == true).ToList();
+            var category = dobj.AddCategory.Where(x => x.IsActive == true).ToList();
+            var type = dobj.AddType.Where(x => x.IsActive == true).ToList();
             var dropdownitems = new addnotes()
             {
                 Country = country,
@@ -40,6 +42,7 @@ namespace Notes_MarketPlace.Controllers
                   {
                       ID = x.ID,
                       NoteTitle = x.NoteTitle,
+                      Status = x.Status,
                       CategoryID = x.CategoryID,
                       TypeID = x.TypeID,
                       NumberOfPages = x.NumberOfPages,
@@ -65,18 +68,18 @@ namespace Notes_MarketPlace.Controllers
 
         [HttpPost]
         [Route("Addnotes")]
-        public ActionResult AddNotes(addnotes model)
+        public ActionResult AddNotes(addnotes model, string addnote_btn)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if((model.IsPaid==true) && (model.NotesPreview==null))
+                if ((model.IsPaid == true) && (model.NotesPreview == null))
                 {
                     ModelState.AddModelError("NotesPreview", "NotesPreview Required");
-                    
-                    var country = dobj.AddCountry.ToList();
-                    var category = dobj.AddCategory.ToList();
-                    var type = dobj.AddType.ToList();
+
+                    var country = dobj.AddCountry.Where(x => x.IsActive == true).ToList();
+                    var category = dobj.AddCategory.Where(x => x.IsActive == true).ToList();
+                    var type = dobj.AddType.Where(x => x.IsActive == true).ToList();
                     var dropdownitems = new addnotes()
                     {
                         Country = country,
@@ -86,7 +89,7 @@ namespace Notes_MarketPlace.Controllers
 
                     return View(dropdownitems);
 
-                   
+
                 }
 
                 var emailid = User.Identity.Name.ToString();
@@ -95,24 +98,74 @@ namespace Notes_MarketPlace.Controllers
 
                 //Checking for directory
 
-                if(!Directory.Exists(path))
+                if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
+                }
+
+                if (model.ID > 0)
+                {
+                    NoteDetails details = dobj.NoteDetails.Where(x => x.ID == model.ID).FirstOrDefault();
+                    if (details.Status == 5)
+                    {
+                        details.Status = 1;
+                        dobj.SaveChanges();
+
+                        model.ID = 0;
+                    }
                 }
 
                 var statusvalue = "Draft";
                 ReferenceData refdata = dobj.ReferenceData.Where(x => x.RefCategory == "NotesStatus" && x.Datavalue == statusvalue && x.IsActive == true).FirstOrDefault();
 
+                var statusvalue_new = "Submitted For Review";
+                ReferenceData refdata_new = dobj.ReferenceData.Where(x => x.RefCategory == "NotesStatus" && x.Datavalue == statusvalue_new && x.IsActive == true).FirstOrDefault();
+
                 //Saving into database
-
-                
-
                 if (model.ID == 0)
                 {
                     NoteDetails ndetails = new NoteDetails();
                     ndetails.ID = model.ID;
                     ndetails.UID = obj.ID;
-                    ndetails.Status = refdata.ID;
+                    if (addnote_btn == "1")
+                    {
+                        ndetails.Status = refdata.ID;
+                    }
+                    else
+                    {
+                        ndetails.Status = refdata_new.ID;
+
+                        ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+                        var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace"); //Email of Company
+                        var toEmail = new MailAddress(manage.EmailAddress_es); //Email of admin
+                        var fromEmailPassword = "********"; // Replace with actual password
+                        string subject = obj.FirstName + " - sent his note for review";
+
+                        string body = "Hello Admins," +
+                             "<br/><br/>We want to inform you that," + obj.FirstName + " sent his note" +
+                             model.NoteTitle + " for review. Please look at the notes and take required actions. " +
+                             "<br/><br/>Regards," +
+                             "<br/>Notes MarketPlace";
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                        };
+
+                        using (var message = new MailMessage(fromEmail, toEmail)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        })
+                            smtp.Send(message);
+                    }
                     ndetails.NoteTitle = model.NoteTitle;
                     ndetails.CategoryID = model.CategoryID;
                     ndetails.Description = model.Description;
@@ -199,7 +252,7 @@ namespace Notes_MarketPlace.Controllers
                     sellnotesattach.FilePath = uploadfilepath;
                     dobj.SellerNotesAttachments.Add(sellnotesattach);
                     dobj.SaveChanges();
-                    return RedirectToAction("Home", "Home");
+                    return RedirectToAction("Dashboard", "Dashboard");
 
                 }
 
@@ -207,7 +260,45 @@ namespace Notes_MarketPlace.Controllers
                 else
                 {
                     NoteDetails ndetails = dobj.NoteDetails.Where(x => x.ID == model.ID).FirstOrDefault();
-                    ndetails.Status = refdata.ID;
+                    if (addnote_btn == "1")
+                    {
+                        ndetails.Status = refdata.ID;
+                    }
+                    else
+                    {
+                        ndetails.Status = refdata_new.ID;
+
+                        ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+                        var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace"); //Email of Company
+                        var toEmail = new MailAddress(manage.EmailAddress_es); //Email of admin
+                        var fromEmailPassword = "*******"; // Replace with actual password
+                        string subject = obj.FirstName + " - sent his note for review";
+
+                        string body = "Hello Admins," +
+                             "<br/><br/>We want to inform you that," + obj.FirstName + " sent his note" +
+                             model.NoteTitle + " for review. Please look at the notes and take required actions. " +
+                             "<br/><br/>Regards," +
+                             "<br/>Notes MarketPlace";
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                        };
+
+                        using (var message = new MailMessage(fromEmail, toEmail)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        })
+                            smtp.Send(message);
+                    }
                     ndetails.NoteTitle = model.NoteTitle;
                     ndetails.CategoryID = model.CategoryID;
                     ndetails.Description = model.Description;
@@ -230,7 +321,7 @@ namespace Notes_MarketPlace.Controllers
 
                     var NoteID = ndetails.ID;
                     string finalpath = Path.Combine(Server.MapPath("~/Members/" + obj.ID), NoteID.ToString());
-                    Directory.Delete(finalpath,true);
+                    Directory.Delete(finalpath, true);
 
                     if (!Directory.Exists(finalpath))
                     {
@@ -291,13 +382,13 @@ namespace Notes_MarketPlace.Controllers
                     sellnotesattach.FilePath = uploadfilepath;
                     dobj.Entry(sellnotesattach).State = EntityState.Modified;
                     dobj.SaveChanges();
-                    return RedirectToAction("Home", "Home");
+                    return RedirectToAction("Dashboard", "Dashboard");
                 }
-                
+
             }
-            return RedirectToAction("Home", "Home"); 
+            return RedirectToAction("Dashboard", "Dashboard");
         }
 
-        
+
     }
 }

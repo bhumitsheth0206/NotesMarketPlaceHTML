@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace NotesMarketPlace.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "member")]
     public class MyDownloadsController : Controller
     {
 
@@ -74,6 +74,8 @@ namespace NotesMarketPlace.Controllers
                 Response.TransmitFile(seller_notes.FilePath);
                 Response.End();
                 downloads.IsAttachmentDownloaded = true;
+                downloads.AttachmentDownloadedDate = DateTime.Now;
+                dobj.SaveChanges();
             }
 
             return RedirectToAction("MyDownloads", "MyDownloads");
@@ -121,9 +123,11 @@ namespace NotesMarketPlace.Controllers
             dobj.SpamReports.Add(spam_reports);
             dobj.SaveChanges();
 
-            var fromEmail = new MailAddress(""); //Email of Company
-            var toEmail = new MailAddress("");//Email of Admin
-            var fromEmailPassword = "*******"; // Replace with actual password
+            ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+            var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace"); //Email of Company
+            var toEmail = new MailAddress(manage.EmailAddress_es);//Email of Admin
+            var fromEmailPassword = "*********"; // Replace with actual password
             string subject = obj.FirstName + " Reported an issue for " + downloads.NoteTitle;
 
             string body = "Hello, Admins" +

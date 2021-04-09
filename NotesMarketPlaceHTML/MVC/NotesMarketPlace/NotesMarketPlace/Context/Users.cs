@@ -17,9 +17,13 @@ namespace NotesMarketPlace.Context
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
+            this.AddCategory = new HashSet<AddCategory>();
+            this.AddCountry = new HashSet<AddCountry>();
+            this.AddType = new HashSet<AddType>();
             this.Downloads = new HashSet<Downloads>();
             this.Downloads1 = new HashSet<Downloads>();
             this.NoteDetails = new HashSet<NoteDetails>();
+            this.NoteDetails1 = new HashSet<NoteDetails>();
             this.NoteReview = new HashSet<NoteReview>();
             this.SpamReports = new HashSet<SpamReports>();
             this.UserProfile = new HashSet<UserProfile>();
@@ -30,6 +34,8 @@ namespace NotesMarketPlace.Context
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailID { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PhoneNumber_CountryCode { get; set; }
         public string Password { get; set; }
         public bool IsEmailVerified { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -39,11 +45,19 @@ namespace NotesMarketPlace.Context
         public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AddCategory> AddCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AddCountry> AddCountry { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AddType> AddType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Downloads> Downloads { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Downloads> Downloads1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NoteDetails> NoteDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NoteDetails> NoteDetails1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NoteReview> NoteReview { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

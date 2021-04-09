@@ -1,0 +1,109 @@
+﻿@model NotesMarketPlace.Areas.Admin.Data.addcategory
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+
+    <section id="addcategory-page" class="main-wrapper">
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                            <h3>Add Category</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-6">
+                        <div id="addcategory-form">
+                            @using (Html.BeginForm("AddCategory", "AddCategory", FormMethod.Post))
+                            {
+                                if (Model != null)
+                                {
+                                    @Html.HiddenFor(x => x.ID)
+                                }
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addcategory-name">
+                                            <label for="ad-addcategory-fname" class="label-text">Category Name* @Html.ValidationMessageFor(x => x.CategoryName, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control label-text", @placeholder = "Enter your category name" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addcategory-detail">
+                                            <label for="addcategory-detail" class="label-text">Discription* @Html.ValidationMessageFor(x => x.Description, "", new { @class = "Error" })</label>
+                                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @placeholder = "Enter your discription", @rows = "12" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <button class="btn  btn-home-1" type="submit">SUBMIT</button>
+                                    </div>
+
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+
+</html>

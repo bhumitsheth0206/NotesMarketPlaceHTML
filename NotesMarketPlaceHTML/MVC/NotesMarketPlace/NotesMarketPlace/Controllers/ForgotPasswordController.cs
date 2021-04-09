@@ -56,9 +56,12 @@ namespace Notes_MarketPlace.Controllers
                 string strNewPassword = GeneratePassword().ToString();
                 obj.Password = EncryptPassword.EncMD5(strNewPassword);
                 dobj.SaveChanges();
-                var fromEmail = new MailAddress("bhumitsheth02@gmail.com", "Notes-MarketPlace");
+
+                ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+                var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace");
                 var toEmail = new MailAddress(EmailID);
-                var fromEmailPassword = "*******"; // Replace with actual password
+                var fromEmailPassword = "******"; // Replace with actual password
                 string subject = "Notes MarketPlace- Email Verification";
 
                 string body = "<br/><br/>Hello" +

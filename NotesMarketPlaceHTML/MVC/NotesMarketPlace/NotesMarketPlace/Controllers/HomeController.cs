@@ -56,9 +56,10 @@ namespace Notes_MarketPlace.Controllers
         {
             if (ModelState.IsValid)
             {
+                ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
 
-                var fromEmail = new MailAddress(""); //Email of Company
-                var toEmail = new MailAddress(""); //Email of admin
+                var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace");
+                var toEmail = new MailAddress(manage.EmailAddress_es); //Email of admin
                 var fromEmailPassword = "******"; // Replace with actual password
                 string subject = model.FullName + " - Query";
 

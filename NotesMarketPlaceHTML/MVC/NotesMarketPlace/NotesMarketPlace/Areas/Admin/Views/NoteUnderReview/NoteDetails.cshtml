@@ -1,0 +1,350 @@
+﻿@using NotesMarketPlace.Context
+
+@model NotesMarketPlace.Context.NoteDetails
+
+@{
+    ViewBag.Title = "NoteDetails";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+
+    <section id="notedetails-page" class="heading-space main-wrapper">
+
+        @{
+            NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
+            string emailid = User.Identity.Name;
+            string buyer = dobj.Users.Where(x => x.EmailID == emailid).Select(x => x.FirstName).FirstOrDefault();
+        }
+
+        <div class="content-box-lg note-details">
+            <div class="container">
+                <div class="heading">
+                    <h3>Note Details</h3>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-7 note-name">
+                            @{ string path1 = "";}
+
+                            @if (Model.DisplayPicture != null)
+                            {
+                                path1 = Model.DisplayPicture;
+                            }
+
+                            else
+                            {
+                                ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.SingleOrDefault();
+                                path1 = manage.DefaultNoteDisplayImage;
+                            }
+
+                            <img src="@path1" class="img-responsive" height="350" width="250" alt="Notes-Detail Image">
+
+                            <div class="note-info">
+
+                                <h3>@Model.NoteTitle</h3>
+                                <h4>@Model.AddCategory.CategoryName</h4>
+                                <p>@Model.Description</p>
+
+
+                                @using (Html.BeginForm("Download_Note", "NoteUnderReview", FormMethod.Post))
+                                {
+                                    @Html.HiddenFor(x => x.ID)
+
+                                    if (Model.IsPaid.Equals(false))
+                                    {
+                                        <button type="submit" class="btn btn-general btn-home-1 smooth-scroll">
+                                            DOWNLOAD
+                                        </button>
+                                    }
+
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-general btn-home-1 smooth-scroll">
+                                            DOWNLOAD / $@Model.SellPrice
+                                        </button>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5">
+                            @{
+                                List<NoteReview> list = dobj.NoteReview.Where(x => x.NoteID == Model.ID).OrderByDescending(x => x.CreatedDate).ToList();
+                                int noOfReviews = list.Count();
+                                var sumOfStar = list.Sum(x => x.Rate);
+
+                                List<SpamReports> list_spamreport = dobj.SpamReports.Where(x => x.NoteID == Model.ID).ToList();
+                                var noOfSpam = list_spamreport.Count();
+                            }
+                            <div class="about-book">
+
+
+                                @if (Model.InstitutionName != null)
+                                {
+                                    <p>
+                                        Institution:<span>@Model.InstitutionName</span>
+                                    </p>
+                                }
+
+                                @if (Model.AddCountry.CountryName != null)
+                                {
+                                    <p>Country: <span>@Model.AddCountry.CountryName</span></p>
+                                }
+
+                                @if (Model.Course != null)
+                                {
+                                    <p>Course Name: <span>@Model.Course</span></p>
+                                }
+
+                                @if (Model.CourseCode != null)
+                                {
+                                    <p>Course Code: <span>@Model.CourseCode</span></p>
+                                }
+
+                                @if (Model.Professor != null)
+                                {
+                                    <p>Professor: <span>@Model.Professor</span></p>
+                                }
+
+                                @if (Model.NumberOfPages != null)
+                                {
+                                    <p>Number of Pages: <span>@Model.NumberOfPages</span></p>
+                                }
+
+                                @if (Model.PublishedDate != null)
+                                {
+                                    <p>Approved Date: <span>@Model.PublishedDate.Value.ToString("ddd, MMM dd yyyy")</span></p>
+                                }
+
+                                <p>
+                                    Rating:
+                                    @if (noOfReviews != 0)
+                                    {
+
+                                        var avg = sumOfStar / noOfReviews;
+
+                                        <div class="rating">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                string addClass = (i <= avg ? "fa fa-star" : "fa fa-star-o");
+
+                                                <i class="@addClass"></i>
+                                            }
+                                            <span>@noOfReviews Reviews</span>
+                                        </div>
+                                    }
+
+                                </p>
+                                <p>
+                                    @if (noOfSpam != 0)
+                                    {
+                                        <span style="color: red">@noOfSpam Users marked this as an inappropriate</span>
+                                    }
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="col-md-5">
+                        <div id="notedetails-left-heading">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Notes Previews</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        @{string path = ""; }
+
+                        @if (Model.NotesPreview != null)
+                        {
+                            path = Model.NotesPreview;
+
+                            <div id="note-preview">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
+                                            <div class="responsive-wrapper responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+                                                <iframe src="@path">
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+
+                        else
+                        {
+                            <div id="notedetails-left-heading">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <h4>Note Preview is not available</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    @if (noOfReviews != 0)
+                    {
+                        <div class="col-md-7">
+
+                            <div id="notedetails-left-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Customer Reviews</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="customer-box">
+                                <div class="row">
+
+                                    @foreach (var item in list)
+                                    {
+                                        var user = item.Users.UserProfile.Where(x => x.UID == item.ReviewedByID).FirstOrDefault();
+                                        string path_profile = "";
+                                        if (user.ProfilePicture != null)
+                                        {
+                                            path_profile = user.ProfilePicture;
+                                        }
+                                        else
+                                        {
+                                            ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.SingleOrDefault();
+                                            path_profile = manage.DefaultProfilePicture;
+                                        }
+                                        <!-- Customers -->
+                                        <div class="col-md-1">
+
+                                            <img src="@path_profile" class="rounded-circle" alt="Customer Image" height="50" width="50" />
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div id="notes-items">
+                                                <ul>
+                                                    <li>
+                                                        <h6>
+                                                            @item.Users.FirstName  @item.Users.LastName
+                                                        </h6>
+                                                        <div id="dash-img">
+                                                            <a href="@Url.Action("DeleteReview","NoteUnderReview", new { ID = item.ID})">
+                                                                <i style="float: right;" class="fa fa-trash" id="ellipsis"></i>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        @if (noOfReviews != 0)
+                                                        {
+
+                                                            var avg = sumOfStar / noOfReviews;
+
+                                                            <div class="rating">
+                                                                @for (int i = 1; i <= 5; i++)
+                                                                {
+                                                                    string addClass = (i <= item.Rate ? "fa fa-star" : "fa fa-star-o");
+
+                                                                    <i class="@addClass"></i>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </li>
+                                                    <li>
+                                                        <p>@item.Comment</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 notes-line">
+                                            <div id="line-1"></div>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+

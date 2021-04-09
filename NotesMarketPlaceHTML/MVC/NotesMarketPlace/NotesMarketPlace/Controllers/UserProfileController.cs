@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace NotesMarketPlace.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "member")]
     public class UserProfileController : Controller
     {
         NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
@@ -120,7 +120,7 @@ namespace NotesMarketPlace.Controllers
                 }
                 else
                 {
-                    UserProfile profile = new UserProfile();
+                    UserProfile profile = dobj.UserProfile.Where(x => x.ID == model.ID).FirstOrDefault();
                     profile.UID = obj.ID;
                     profile.DateOfBirth = model.DateOfBirth;
                     profile.Gender = model.Gender;
@@ -134,8 +134,8 @@ namespace NotesMarketPlace.Controllers
                     profile.Country = model.Country;
                     profile.University = model.University;
                     profile.College = model.College;
-                    profile.SubmittedBy = obj.ID;
-                    profile.SubmittedDate = DateTime.Now;
+                    profile.ModifiedBy = obj.ID;
+                    profile.ModifiedDate = DateTime.Now;
 
                     dobj.Entry(profile).State = EntityState.Modified;
                     dobj.SaveChanges();

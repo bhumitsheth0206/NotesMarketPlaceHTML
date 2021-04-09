@@ -1,0 +1,112 @@
+﻿@model NotesMarketPlace.Areas.Admin.Data.addcountry
+
+@{
+    ViewBag.Title = "AddCountry";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+
+    <section id="addcountry-page" class="main-wrapper">
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                            <h3>Add Country</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-6">
+                        <div id="addcountry-form">
+                            @using (Html.BeginForm("AddCountry", "AddCountry", FormMethod.Post))
+                            { 
+
+                                <div class="row">
+
+                                    @if(Model != null)
+                                    {
+                                        @Html.HiddenFor(x=>x.ID)
+                                    }
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addcountry-name">
+                                            <label for="ad-addcategory-fname" class="label-text">Country Name*  @Html.ValidationMessageFor(x => x.CountryName, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.CountryName, new { @class = "form-control label-text", @placeholder = "Enter country name" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="addcountry-code">
+                                            <label for="ad-addcategory-fname" class="label-text">Country Code* @Html.ValidationMessageFor(x => x.CountryCode, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.CountryCode, new { @class = "form-control label-text", @placeholder = "Enter country code" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn  btn-home-1" >SUBMIT</button>
+                                    </div>
+
+
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+

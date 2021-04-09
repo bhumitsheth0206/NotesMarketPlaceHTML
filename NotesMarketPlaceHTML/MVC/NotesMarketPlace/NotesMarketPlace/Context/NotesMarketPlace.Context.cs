@@ -28,7 +28,6 @@ namespace NotesMarketPlace.Context
         public virtual DbSet<AddCategory> AddCategory { get; set; }
         public virtual DbSet<AddCountry> AddCountry { get; set; }
         public virtual DbSet<AddType> AddType { get; set; }
-        public virtual DbSet<ContactUs> ContactUs { get; set; }
         public virtual DbSet<Downloads> Downloads { get; set; }
         public virtual DbSet<ManageSystemConfiguration> ManageSystemConfiguration { get; set; }
         public virtual DbSet<NoteDetails> NoteDetails { get; set; }

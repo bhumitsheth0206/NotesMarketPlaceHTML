@@ -1,0 +1,158 @@
+﻿@model NotesMarketPlace.Areas.Admin.Data.managesystemconfig
+
+@{
+    ViewBag.Title = "ManageSystemConfig";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+    <section id="sysconfig-page" class="main-wrapper">
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="page-heading">
+                            <h3>Manage System Configuration</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="col-md-6">
+                        <div id="sysconfig-form">
+                            @using (Html.BeginForm("ManageSystemConfig", "ManageSystemConfig", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                            {
+
+                                <div class="row">
+                                    @if (Model != null)
+                                    {
+                                        @Html.HiddenFor(x => x.ID)
+                                    }
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-mail">
+                                            <label for="ad-myprof-mail" class="label-text">Support Email Address*  @Html.ValidationMessageFor(x => x.SupportEmail, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.SupportEmail, new { @class = "form-control label-text", @placeholder = "Enter your email address" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-phno">
+                                            <label for="ad-sysconfig-phno" class="label-text">Support Phone Number* @Html.ValidationMessageFor(x => x.SupportContactNumber, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.SupportContactNumber, new { @class = "form-control label-text", @placeholder = "Enter phone number" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-oth_mail">
+                                            <label for="ad-sysconfig-oth_mail" class="label-text">Email Address(es)(for various events system will send notifications to these users)* @Html.ValidationMessageFor(x => x.EmailAddress_es, "", new { @class = "Error" })</label>
+                                            @Html.TextBoxFor(x => x.EmailAddress_es, new { @class = "form-control label-text", @placeholder = "Enter email address" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-fburl">
+                                            <label for="ad-sysconfig-fburl" class="label-text">Facebook URL</label>
+                                            @Html.TextBoxFor(x => x.FacebookURL, new { @class = "form-control label-text", @placeholder = "Enter facebook url" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-twurl">
+                                            <label for="ad-sysconfig-twurl" class="label-text">Twitter URL</label>
+                                            @Html.TextBoxFor(x => x.TwitterURL, new { @class = "form-control label-text", @placeholder = "Enter twitter url" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="sysconfig-lndurl">
+                                            <label for="ad-sysconfig-lndurl" class="label-text">LinkedIn URL</label>
+                                            @Html.TextBoxFor(x => x.LinkedInURL, new { @class = "form-control label-text", @placeholder = "Enter linkedin url" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="sysconfig-upload" class="label-text">Default image for notes(if seller do not upload) @Html.ValidationMessageFor(x => x.DefaultNoteDisplayImage, "", new { @class = "Error" })</label>
+                                        <div class="image-upload text-center">
+                                            <label for="upload-picture">
+                                                <img src="~/Content/User/Add-notes/upload-file.png" id="file_img" />
+                                                @Html.TextBoxFor(x => x.DefaultNoteDisplayImage, new { @type = "file", @id = "upload-picture", @name = "file", @onchange = "return picturevalidation()" })
+                                            </label>
+                                        </div>
+                                        <span id="uploadpicture-error"></span>
+                                    </div>
+
+                                    <div class="col-md-12 mt-3">
+                                        <label for="sysconfig-picupload" class="label-text">Default profile picture(if seller do not upload) @Html.ValidationMessageFor(x => x.DefaultProfilePicture, "", new { @class = "Error" })</label>
+                                        <div class="image-upload text-center">
+                                            <label for="upload-picture">
+                                                <img src="~/Content/User/Add-notes/upload-file.png" id="file_img" />
+                                                @Html.TextBoxFor(x => x.DefaultProfilePicture, new { @type = "file", @id = "upload-picture", @name = "file", @onchange = "return picturevalidation()" })
+                                            </label>
+                                        </div>
+                                        <span id="uploadpicture-error"></span>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <button class="btn  btn-home-1 smooth-scroll mt-3" type="submit">SUBMIT</button>
+                                    </div>
+
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+

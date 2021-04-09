@@ -14,7 +14,7 @@ namespace NotesMarketPlace.Models
 
         public int UID { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         public int CategoryID { get; set; }
@@ -73,9 +73,7 @@ namespace NotesMarketPlace.Models
 
         public List<AddType> Type { get; set; }
 
-        public string FileName { get; set; }
-
-        public string FilePath { get; set; }
+        public virtual Users Users { get; set; }
 
     }
 }

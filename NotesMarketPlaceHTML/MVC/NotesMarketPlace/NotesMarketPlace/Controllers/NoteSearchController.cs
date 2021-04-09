@@ -19,14 +19,14 @@ namespace NotesMarketPlace.Controllers
 
         [Route("NoteSearch")]
         // GET: NoteSearch
-        public ActionResult NoteSearch(string Search_keyword, string Type, string Category, string University, string Courses, string Country, int? page)
+        public ActionResult NoteSearch(string Search_keyword, string Type, string Category, string University, string Courses, string Country, int? page,String Ratings)
         {
             var country = dobj.AddCountry.ToList();
             var category = dobj.AddCategory.ToList();
             var type = dobj.AddType.ToList();
             var university = dobj.NoteDetails.Where(x => x.InstitutionName != null).Select(x => x.InstitutionName).Distinct().ToList();
             var course = dobj.NoteDetails.Where(x => x.Course != null).Select(x => x.Course).Distinct().ToList();
-            var note = dobj.NoteDetails.Where(x => x.NoteTitle.Contains(Search_keyword) || Search_keyword==null).ToList().AsQueryable();
+            var note = dobj.NoteDetails.Where(x => (x.NoteTitle.Contains(Search_keyword) || Search_keyword==null) && x.Status == 4).ToList().AsQueryable();
             var dropdownitems = new notesearch()
             {
                 Country = country,
@@ -34,7 +34,8 @@ namespace NotesMarketPlace.Controllers
                 Type = type,
                 University = university,
                 Courses = course,
-                Note = note.Where(x => x.TypeID.ToString() == Type || String.IsNullOrEmpty(Type) && x.CategoryID.ToString() == Category || String.IsNullOrEmpty(Category) && x.InstitutionName == University || String.IsNullOrEmpty(University) && x.Course == Courses || String.IsNullOrEmpty(Courses) && x.CountryID.ToString() == Country || String.IsNullOrEmpty(Country)).ToPagedList(page ?? 1, 6)
+                Note = note.Where(x => (x.TypeID.ToString() == Type || String.IsNullOrEmpty(Type)) && (x.CategoryID.ToString() == Category || String.IsNullOrEmpty(Category)) && (x.InstitutionName == University || String.IsNullOrEmpty(University)) && ( x.Course == Courses || String.IsNullOrEmpty(Courses)) && (x.CountryID.ToString() == Country || String.IsNullOrEmpty(Country))
+                && (Math.Round(x.NoteReview.Where(a => a.NoteID == x.ID).Count() == 0 ? 0 :(x.NoteReview.Where(a => a.NoteID == x.ID).Sum(a => a.Rate) / x.NoteReview.Where(a => a.NoteID == x.ID).Count() )).ToString() == Ratings || String.IsNullOrEmpty(Ratings)) ).ToPagedList(page ?? 1, 6)
 
             };
             ViewBag.notecount = dropdownitems.Note.Count();
@@ -77,7 +78,9 @@ namespace NotesMarketPlace.Controllers
 
                 else
                 {
-                    var fromEmail = new MailAddress(""); //Email of Company
+                    ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+                    var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace");
                     var toEmail = new MailAddress(seller_email.EmailID); //Seller Email
                     var fromEmailPassword = "*******"; // Replace with actual password
                     string subject = obj.FirstName + "- wants to purchase your notes";

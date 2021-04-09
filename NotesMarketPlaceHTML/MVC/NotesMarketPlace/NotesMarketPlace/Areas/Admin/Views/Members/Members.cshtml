@@ -1,0 +1,184 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using NotesMarketPlace.Context;
+
+@model IPagedList<NotesMarketPlace.Context.Users>
+
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+@{ int cnt = 0; }
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+    @{ 
+        NotesMarketPlaceEntities dobj = new NotesMarketPlaceEntities();
+        string emailid = User.Identity.Name;
+    }
+    <section id="members-page" class="main-wrapper">
+
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("Members", "Members", FormMethod.Get, new { @id = "search_form" }))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>Members</h4>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" name="search" placeholder="Search">
+                                </div>
+                                <div id="dash-right">
+                                    <button class="btn  btn-home-1 smooth-scroll mb-2" type="submit">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table table-general">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("FIRST NAME", "Members", new { sortBy = ViewBag.SortFirstName, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("LAST NAME", "Members", new { sortBy = ViewBag.SortLastName, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("EMAIL", "Members", new { sortBy = ViewBag.SortEmail, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("JOINING DATE", "Members", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">UNDER REVIEW NOTES</th>
+                                        <th scope="col">PUBLISHED NOTES</th>
+                                        <th scope="col">DOWNLOADED NOTES</th>
+                                        <th scope="col">TOTAL EXPENSES</th>
+                                        <th scope="col">TOTAL EARNINGS</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="11" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        cnt = cnt + 1;
+                                        <tr>
+                                            <td scope="row">@cnt</td>
+                                            <td>@item.FirstName</td>
+                                            <td>@item.LastName</td>
+                                            <td>@item.EmailID</td>
+                                            <td>@item.CreatedDate.Value.ToString("dd-MM-yyyy, hh:mm")</td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("NoteUnderReview","NoteUnderReview",new { search = item.NoteDetails.Select(x => x.NoteTitle).FirstOrDefault()})">
+                                                    @item.NoteDetails.Where(x => x.Status == 2 || x.Status == 3).Count()
+                                                </a>
+                                            </td>
+
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("PublishedNotes","PublishedNotes", new { search = item.NoteDetails.Select(x => x.NoteTitle).FirstOrDefault()})">
+                                                    @item.NoteDetails.Where(x => x.Status == 4).Count()
+                                                </a>
+                                            </td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("DownloadedNotes","DownloadedNotes",new { search = item.NoteDetails.Select(x => x.NoteTitle).FirstOrDefault()})">
+                                                    @item.Downloads.Where(x => x.IsAttachmentDownloaded == true).Count()
+                                                </a>
+                                            </td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("DownloadedNotes","DownloadedNotes",new { search = item.NoteDetails.Select(x => x.NoteTitle).FirstOrDefault()})">
+                                                    $@item.NoteDetails.Sum(x => x.SellPrice)
+                                                </a>
+                                            </td>
+                                            <td>$@item.Downloads.Where(x => x.IsAttachmentDownloaded == true).Sum(x => x.PurchasedPrice)</td>
+                                            <td>
+                                                <div id="dash-img" class="dropdown">
+                                                    <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div class="dropdown">
+                                                        <div class="dropdown-content">
+                                                            <a href="@Url.Action("MemberDetails","Members",new { ID = item.ID})">View More Details</a>
+                                                            <a href="@Url.Action("DeleteUser","Members",new { ID = item.ID})" onclick="return confirm('Are you sure you want to make this member inactive?')">Deactivate</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("Members", new { page, search = Request.QueryString["search"] }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+

@@ -226,15 +226,8 @@
     <Content Include="Members\64\33\DP_17-03-21.jpg" />
     <Content Include="Members\64\DP_13-03-2021_19-32-53.png" />
     <Content Include="Scripts\Admin\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\Admin\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\Admin\jquery-3.6.0.min.js" />
     <Content Include="Scripts\Admin\script.js" />
-    <EntityDeploy Include="Context\NotesMarketPlace.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NotesMarketPlace.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Context\NotesMarketPlace.edmx.diagram">
-      <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
-    </Content>
     <Content Include="Members\64\25\Attachment\Attachment1_16-03-21.pdf" />
     <Content Include="Members\64\25\Preview_16-03-21_.pdf" />
     <Content Include="Members\64\32\Attachment\Attachment1_17-03-21.pdf" />
@@ -243,6 +236,35 @@
     <Content Include="Members\64\33\Preview_17-03-21.pdf" />
     <Content Include="Members\64\34\Attachment\Attachment1_17-03-21.pdf" />
     <Content Include="Members\64\34\Preview_17-03-21.pdf" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\AddAdministrator\AddAdministrator.cshtml" />
+    <Content Include="Areas\Admin\Views\AddCategory\AddCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\AddCountry\AddCountry.cshtml" />
+    <Content Include="Areas\Admin\Views\AddType\AddType.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCategory\ManageCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\AddAdministrator\EmailVerify.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageCountry\ManageCountry.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageType\ManageType.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAdministrator\ManageAdministrator.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageSystemConfig\ManageSystemConfig.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateProfile\UpdateProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\ChangePassword\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\NoteUnderReview\NoteUnderReview.cshtml" />
+    <Content Include="Areas\Admin\Views\NoteUnderReview\NoteDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\PublishedNotes\PublishedNotes.cshtml" />
+    <Content Include="Areas\Admin\Views\DownloadedNotes\DownloadedNotes.cshtml" />
+    <Content Include="Areas\Admin\Views\RejectedNotes\RejectedNotes.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Dashboard.cshtml" />
+    <EntityDeploy Include="Context\NotesMarketPlace.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NotesMarketPlace.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Context\NotesMarketPlace.edmx.diagram">
+      <DependentUpon>NotesMarketPlace.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\SpamReports\SpamReports.cshtml" />
+    <Content Include="Areas\Admin\Views\Members\Members.cshtml" />
+    <Content Include="Areas\Admin\Views\Members\MemberDetails.cshtml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -261,6 +283,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AddAdministratorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AddCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AddCountryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AddTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChangePasswordController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DownloadedNotesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAdministratorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageCountryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageSystemConfigController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MembersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NoteUnderReviewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PublishedNotesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RejectedNotesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpamReportsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UpdateProfileController.cs" />
+    <Compile Include="Areas\Admin\Data\addadmin.cs" />
+    <Compile Include="Areas\Admin\Data\addcategory.cs" />
+    <Compile Include="Areas\Admin\Data\addcountry.cs" />
+    <Compile Include="Areas\Admin\Data\addtype.cs" />
+    <Compile Include="Areas\Admin\Data\changepassword.cs" />
+    <Compile Include="Areas\Admin\Data\managesystemconfig.cs" />
+    <Compile Include="Areas\Admin\Data\updateprofile.cs" />
     <Compile Include="Context\AddCategory.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
@@ -268,9 +316,6 @@
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\AddType.cs">
-      <DependentUpon>NotesMarketPlace.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Context\ContactUs.cs">
       <DependentUpon>NotesMarketPlace.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\Downloads.cs">
@@ -326,6 +371,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MyDownloadsController.cs" />
+    <Compile Include="Controllers\MyRejectedNotesController.cs" />
     <Compile Include="Controllers\MySoldNotesController.cs" />
     <Compile Include="Controllers\NoteSearchController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
@@ -337,6 +383,7 @@
     <Compile Include="Models\addnotes.cs" />
     <Compile Include="Models\changepassword.cs" />
     <Compile Include="Models\contactus.cs" />
+    <Compile Include="Models\dashboard.cs" />
     <Compile Include="Models\downloads.cs" />
     <Compile Include="Models\forgotpassword.cs" />
     <Compile Include="Models\Login.cs" />
@@ -345,6 +392,7 @@
     <Compile Include="Models\signup.cs" />
     <Compile Include="Models\userprofile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -383,6 +431,9 @@
     <Content Include="Views\NoteSearch\NoteDetails.cshtml" />
     <Content Include="Views\MyDownloads\MyDownloads.cshtml" />
     <Content Include="Views\MySoldNotes\MySoldNotes.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AdminNavbar.cshtml" />
+    <Content Include="Views\DownloadNotes\DownloadNotes.cshtml" />
+    <Content Include="Views\MyRejectedNotes\MyRejectedNotes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

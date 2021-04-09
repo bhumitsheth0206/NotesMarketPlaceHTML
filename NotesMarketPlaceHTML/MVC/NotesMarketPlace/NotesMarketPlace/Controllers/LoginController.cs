@@ -34,18 +34,31 @@ namespace Notes_MarketPlace.Controllers
 
                 if (isValid)
                 {
-                    Users obj = dobj.Users.Where(x => x.EmailID == model.EmailID && x.Password == password).FirstOrDefault();
+                    Users obj = dobj.Users.Where(x => x.EmailID == model.EmailID && x.Password == password && x.IsActive == true).FirstOrDefault();
 
-                    if(obj.IsEmailVerified)
+                    if (obj.IsEmailVerified)
                     {
                         FormsAuthentication.SetAuthCookie(model.EmailID , model.RememberMe);
-                        
-                        if(dobj.UserProfile.Any(x => x.UID == obj.ID))
-                        {
-                            return RedirectToAction("NoteSearch", "NoteSearch");
-                        }
 
-                        return RedirectToAction("UserProfile", "UserProfile");
+                        if(obj.RoleID == 3)
+                        {
+                            if (dobj.UserProfile.Any(x => x.UID == obj.ID))
+                            {
+                                return RedirectToAction("NoteSearch", "NoteSearch");
+                            }
+                            return RedirectToAction("UserProfile", "UserProfile");
+                            
+                        }
+                        
+                        if(obj.RoleID == 2 || obj.RoleID == 1)
+                        {
+                            if (dobj.UserProfile.Any(x => x.UID == obj.ID))
+                            {
+                                return RedirectToAction("Dashboard", "Admin/Dashboard");
+                            }
+                            return RedirectToAction("UpdateProfile", "Admin/UpdateProfile");
+                        }
+                        
                     }
                     TempData["ErrorMsg"] = "Email Address is not  yet verified";
                     return RedirectToAction("Login", "Login");

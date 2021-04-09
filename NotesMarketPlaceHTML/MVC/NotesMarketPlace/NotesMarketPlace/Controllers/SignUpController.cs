@@ -57,7 +57,9 @@ namespace Notes_MarketPlace.Controllers
             var verifyUrl = "/EmailVerify?emailid=" + user.EmailID ;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("bhumitsheth02@gmail.com", "Notes-MarketPlace");
+            ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.FirstOrDefault();
+
+            var fromEmail = new MailAddress(manage.SupportEmail, "Notes-MarketPlace");
             var toEmail = new MailAddress(EmailID);
             var fromEmailPassword = "*******"; // Replace with actual password
             string subject = "Notes MarketPlace - Email Verification";

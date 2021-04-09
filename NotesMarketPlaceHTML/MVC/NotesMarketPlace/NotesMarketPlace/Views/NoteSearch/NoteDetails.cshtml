@@ -69,7 +69,8 @@
 
                             else
                             {
-                                path1 = "../DefaultImg/3.jpg";
+                                ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.SingleOrDefault();
+                                path1 = manage.DefaultNoteDisplayImage;
                             }
 
                             <img src="@path1" class="img-responsive" height="350" width="250" alt="Notes-Detail Image">
@@ -171,7 +172,11 @@
                                     <p>Number of Pages: <span>@Model.NumberOfPages</span></p>
                                 }
 
-                                <p>Approved By: <span>November 25 2020</span></p>
+                                @if(Model.PublishedDate != null)
+                                {
+                                     <p>Approved By: <span>@Model.PublishedDate.Value.ToString("ddd, MMM dd yyyy")</span></p>
+                                }
+                                
                                 <p>
                                     Rating:
                                     @if (noOfReviews != 0)
@@ -290,7 +295,8 @@
                                         }
                                         else
                                         {
-                                            path_profile = "../DefaultImg/customer-3.png"; 
+                                            ManageSystemConfiguration manage = dobj.ManageSystemConfiguration.SingleOrDefault();
+                                            path_profile = manage.DefaultProfilePicture;
                                         }
                                         <!-- Customers -->
                                         <div class="col-md-1">

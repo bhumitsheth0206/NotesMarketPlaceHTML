@@ -57,3 +57,19 @@ window.onclick = function(event) {
     }
   }
 }
+
+//Validatons for File Upload
+function picturevalidation() {
+	var fileInput = document.getElementById('upload-picture');
+	var filepath = fileInput.value;
+	var allowedextensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+	if (!allowedextensions.exec(filepath)) {
+		fileInput.value = '';
+		document.getElementById('uploadpicture-error').innerHTML = "Image should be .jpg , .jpeg or .png file only";
+		return false;
+	}
+	else {
+		document.getElementById('uploadpicture-error').innerHTML = "";
+	}
+}

@@ -1,0 +1,161 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<NotesMarketPlace.Context.NoteDetails>
+
+@{
+    ViewBag.Title = "MyRejectedNotes";
+    Layout = "~/Views/Shared/RegisteredNavbar.cshtml";
+}
+
+@{ int cnt = 0; }
+
+<html>
+<head>
+
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/User/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/User/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/User/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/User/responsive.css">
+
+</head>
+<body>
+
+    <section id="rejectednotes-page" class="heading-space main-wrapper">
+
+        <div class="content-box-lg">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("MyRejectedNotes", "MyRejectedNotes", FormMethod.Get))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>My Rejected Notes</h4>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field"  name="search" placeholder="Search">
+                                </div>
+                                <div id="dash-right">
+                                    <button class="btn  btn-home-1 smooth-scroll mb-2" type="submit">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table general-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR No.</th>
+                                        <th scope="col">@Html.ActionLink("NOTE TITLE", "MyRejectedNotes", new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "MyRejectedNotes", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("REMARK", "MyRejectedNotes", new { sortBy = ViewBag.SortRemark, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">CLONE</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="6" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        cnt = cnt + 1;
+
+                                        <tr>
+                                            <td scope="row">@cnt</td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("NoteDetails","NoteSearch",new { ID = item.ID})">
+                                                    @item.NoteTitle
+                                                </a>
+                                            </td>
+                                            <td>@item.AddCategory.CategoryName</td>
+                                            <td>@item.Remark</td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("AddNotes","AddNotes",new { ID = item.ID})">
+                                                    Clone
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div id="dash-img" class="dropdown">
+                                                    <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div class="dropdown">
+                                                        <div class="dropdown-content">
+                                                            <a href="@Url.Action("DownloadNotes","MyRejectedNotes",new { id = item.ID})">Download Note</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("MyRejectedNotes", new { page, search = Request.QueryString["search"] }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Jquery  -->
+    <script src="~/Scripts/User/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/User/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/User/script.js"></script>
+
+</body>
+</html>
+

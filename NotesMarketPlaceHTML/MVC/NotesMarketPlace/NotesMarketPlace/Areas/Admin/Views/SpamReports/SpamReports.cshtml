@@ -1,0 +1,168 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using NotesMarketPlace.Context
+
+@model IPagedList<NotesMarketPlace.Context.SpamReports>
+
+@{
+    ViewBag.Title = "SpamReports";
+    Layout = "~/Areas/Admin/Views/Shared/AdminNavbar.cshtml";
+}
+
+@{ int cnt = 0; }
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Title -->
+    <title>Admin-NotesMarketPlace</title>
+
+    <!-- favicon-->
+    <link rel="icon" href="~/Content/User/home/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link rel="stylesheet" href="~/Content/Admin/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/bootstrap/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/style.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Admin/responsive.css">
+
+</head>
+<body>
+    <section id="spamreport-page" class="main-wrapper">
+
+        <div class="content-box-lg heading-space">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("SpamReports", "SpamReports", FormMethod.Get, new { @id = "search_form" }))
+                        {
+                            <div id="dash-heading-left">
+                                <h4>Spam Reports</h4>
+                            </div>
+                            <div id="dash-heading-right">
+                                <div class="form-group has-search" id="dash-left">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="search" class="form-control search-field" name="search" placeholder="Search">
+                                </div>
+                                <div id="dash-right">
+                                    <button class="btn  btn-home-1 smooth-scroll mb-2" type="submit">SEARCH</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="table-responsive" id="dash-table">
+                            <table class="table table-general">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SR NO.</th>
+                                        <th scope="col">@Html.ActionLink("REPORTED BY", "SpamReports", new { sortBy = ViewBag.SortReportedBy, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("NOTE TITLE", "SpamReports", new { sortBy = ViewBag.SortTitle, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("CATEGORY", "SpamReports", new { sortBy = ViewBag.SortCategory, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("DATE EDITED", "SpamReports", new { sortBy = ViewBag.SortAddedDate, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">@Html.ActionLink("REMARK", "SpamReports", new { sortBy = ViewBag.SortRemark, search = Request.QueryString["search"] })</th>
+                                        <th scope="col">ACTION</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="8" class="text-center">No Records Found</td>
+                                        </tr>
+                                    }
+
+                                    @foreach (var item in Model)
+                                    {
+                                        cnt = cnt + 1;
+                                        <tr>
+
+                                            <td scope="row">@cnt</td>
+                                            <td>@item.Users.FirstName @item.Users.LastName</td>
+                                            <td class="table_row_color">
+                                                <a href="@Url.Action("NoteDetails","NoteUnderReview",new { ID = item.ID})">
+                                                    @item.NoteDetails.NoteTitle
+                                                </a>
+                                            </td>
+                                            <td>@item.Downloads.Category</td>
+                                            <td>@item.CreatedDate.Value.ToString("dd-MM-yyyy, hh:mm")</td>
+                                            <td>@item.Remark</td>
+                                            <td>
+                                                <div id="dash-img">
+                                                    <a href="@Url.Action("DeleteRecord","SpamReports",new {id = item.ID })" onclick="return confirm('Do you want to delete the record?')">
+                                                        <i class="fa fa-trash" id="ellipsis"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div id="dash-img" class="dropdown">
+                                                    <i class="fa fa-ellipsis-v dropbtn" id="ellipsis"></i>
+                                                    <div class="dropdown">
+                                                        <div class="dropdown-content">
+                                                            <a href="@Url.Action("NoteDetails","NoteUnderReview",new { ID = item.ID})">View More Details</a>
+                                                            <a href="@Url.Action("DownloadNotes","NoteUnderReview",new { id = item.ID})">Download Note</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="content-box-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("SpamReports", new { page, search = Request.QueryString["search"] }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Jquery -->
+    <script src="~/Scripts/Admin/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/Admin/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Validation -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/Admin/script.js"></script>
+</body>
+</html>
+
