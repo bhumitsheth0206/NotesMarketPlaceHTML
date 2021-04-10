@@ -78,3 +78,33 @@ C:\Users\abc\source\repos\NotesMarketPlace\NotesMarketPlace\bin\PagedList.dll
 C:\Users\abc\source\repos\NotesMarketPlace\NotesMarketPlace\bin\PagedList.Mvc.dll
 C:\Users\abc\source\repos\NotesMarketPlace\NotesMarketPlace\bin\PagedList.xml
 C:\Users\abc\source\repos\NotesMarketPlace\NotesMarketPlace\bin\PagedList.Mvc.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\obj\Debug\NotesMarketPlace.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\obj\Debug\NotesMarketPlace.pdb
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\NotesMarketPlace.dll.config
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\NotesMarketPlace.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\NotesMarketPlace.pdb
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\EntityFramework.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\EntityFramework.SqlServer.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\PagedList.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\PagedList.Mvc.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Helpers.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Mvc.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Razor.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.Deployment.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.Razor.dll
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\EntityFramework.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\EntityFramework.SqlServer.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\PagedList.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\PagedList.Mvc.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Razor.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.Deployment.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Webpages.Razor.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Helpers.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\System.Web.Mvc.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\obj\Debug\NotesMarketPlace.csprojAssemblyReference.cache
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\obj\Debug\NotesMarketPlace.csproj.CoreCompileInputs.cache
+C:\Users\abc\Downloads\NotesMarketPlaceHTML-master (1)\NotesMarketPlaceHTML-master\NotesMarketPlaceHTML\MVC\NotesMarketPlace\NotesMarketPlace\obj\Debug\NotesMarketPlace.csproj.CopyComplete
